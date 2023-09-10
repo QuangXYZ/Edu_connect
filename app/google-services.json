@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "843544814117",
+    "project_id": "edu-connect-8cac1",
+    "storage_bucket": "edu-connect-8cac1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843544814117:android:778a37be91fd895c0fd5cc",
+        "android_client_info": {
+          "package_name": "com.example.edu_connect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvirp9ZOwzvWNxXjmqRb6jNaMzwicusRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
