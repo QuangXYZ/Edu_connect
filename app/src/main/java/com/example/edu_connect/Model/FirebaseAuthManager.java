@@ -6,8 +6,16 @@ import com.google.firebase.auth.FirebaseUser;
 public class FirebaseAuthManager {
     private FirebaseAuth mAuth;
 
+    private static FirebaseAuthManager instance;
     public FirebaseAuthManager() {
         mAuth = FirebaseAuth.getInstance();
+    }
+
+    public static synchronized FirebaseAuthManager getFirebaseAuthManagerInstance() {
+        if (instance == null) {
+            instance = new FirebaseAuthManager();
+        }
+        return instance;
     }
 
     public void registerUser(String email, String password, final AuthCallback callback) {
