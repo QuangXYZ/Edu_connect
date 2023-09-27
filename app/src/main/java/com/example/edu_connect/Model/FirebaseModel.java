@@ -13,7 +13,7 @@ public class FirebaseModel {
         mDatabaseReference = mFirebaseDatabase.getReference();
     }
 
-    public static synchronized FirebaseModel getFirebaseInstance() {
+    public static synchronized FirebaseModel getFirebaseModelInstance() {
         if (instance == null) {
             instance = new FirebaseModel();
         }

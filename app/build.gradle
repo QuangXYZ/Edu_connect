@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.edu_connect"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -29,6 +29,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.example.edu_connect'
 }
 
 dependencies {
@@ -48,4 +49,5 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:32.2.3')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.github.Marvel999:Android-Loading-Animation:1.0.0'
 }
