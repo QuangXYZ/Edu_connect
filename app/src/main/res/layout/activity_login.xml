@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="200dp"
+            android:paddingTop="210dp"
 
             >
 
@@ -43,14 +43,20 @@
                         android:textColor="@color/lavender"
                         android:textSize="36sp"
                         android:textStyle="bold" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="false"
 
-                    <EditText
+                        app:boxBackgroundMode="none"
+                        android:layout_marginTop="40dp"
+                        >
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/login_email"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginTop="40dp"
                         android:background="@drawable/edittext_bkg"
-                        android:drawableLeft="@drawable/ic_baseline_email_24"
+                        android:drawableStart="@drawable/ic_baseline_email_24"
                         android:drawablePadding="8dp"
                         android:hint="Email"
                         android:inputType="text"
@@ -58,22 +64,41 @@
                         android:maxLines="1"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/cardview_dark_background" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="false"
 
-                    <EditText
+                        app:boxBackgroundMode="none"
+                        android:layout_marginTop="20dp"
+                        app:endIconMode="password_toggle">
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/login_password"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginTop="20dp"
+                        android:drawableStart="@drawable/ic_baseline_lock_24"
+
                         android:background="@drawable/edittext_bkg"
-                        android:drawableLeft="@drawable/ic_baseline_lock_24"
+
                         android:drawablePadding="8dp"
                         android:hint="Password"
                         android:inputType="textPassword"
                         android:padding="8dp"
                         android:maxLines="1"
+
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/cardview_dark_background" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <ProgressBar
+                        android:id="@+id/loginProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
 
+                        />
                     <Button
                         android:id="@+id/loginButton"
                         android:layout_width="match_parent"
