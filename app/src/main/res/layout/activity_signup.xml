@@ -10,12 +10,11 @@
     tools:context=".View.SignupActivity">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="150dp"
+        android:paddingTop="110dp"
 
         >
 
@@ -87,7 +86,25 @@
                     android:padding="8dp"
                     android:textColor="@color/black"
                     android:textColorHighlight="@color/cardview_dark_background" />
+                <Spinner
+                    android:id="@+id/signupSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edittext_bkg"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:spinnerMode="dialog"
+                    />
+                <ProgressBar
+                    android:id="@+id/signupProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
 
+                    />
                 <Button
                     android:id="@+id/signupButton"
                     android:layout_width="match_parent"

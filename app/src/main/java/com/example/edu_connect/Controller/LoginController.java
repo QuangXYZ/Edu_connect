@@ -9,7 +9,7 @@ public class LoginController {
         FirebaseAuthManager.getFirebaseAuthManagerInstance().loginUser(email, password, new FirebaseAuthManager.AuthCallback() {
             @Override
             public void onSuccess(FirebaseUser user) {
-                callback.onSuccess();
+                callback.onSuccess(user);
             }
 
             @Override
@@ -22,7 +22,7 @@ public class LoginController {
     }
 
     public interface AuthCallback {
-        void onSuccess();
+        void onSuccess(FirebaseUser user);
         void onFailure(Exception e);
     }
 }

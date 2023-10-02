@@ -25,7 +25,13 @@ public class FirebaseModel {
         productReference.setValue(user);
     }
 
+    public FirebaseDatabase getmFirebaseDatabase() {
+        return mFirebaseDatabase;
+    }
 
+    public DatabaseReference getmDatabaseReference() {
+        return mDatabaseReference;
+    }
 }
 
 
