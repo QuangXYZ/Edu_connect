@@ -5,22 +5,44 @@ import java.util.Date;
 import java.util.List;
 
 public class Course {
+    String idCourse;
+    String inviteCode;
     String className;
     String description;
     ArrayList<Student> students;
     String teacherName;
+    String teacherID;
     String room;
     String note;
-    Date date;
+    String date;
 
+    public Course() {
+    }
 
-    public Course(String className, String description, String teacherName, String room, String note, Date date) {
+    public Course(String className, String description, String teacherName, String teacherID, String room, String note, String date) {
         this.className = className;
         this.description = description;
         this.teacherName = teacherName;
+        this.teacherID = teacherID;
         this.room = room;
         this.note = note;
         this.date = date;
+    }
+
+    public String getIdCourse() {
+        return idCourse;
+    }
+
+    public void setIdCourse(String idCourse) {
+        this.idCourse = idCourse;
+    }
+
+    public String getInviteCode() {
+        return inviteCode;
+    }
+
+    public void setInviteCode(String inviteCode) {
+        this.inviteCode = inviteCode;
     }
 
     public String getRoom() {
@@ -41,6 +63,14 @@ public class Course {
                 ", note='" + note + '\'' +
                 ", date=" + date +
                 '}';
+    }
+
+    public String getTeacherID() {
+        return teacherID;
+    }
+
+    public void setTeacherID(String teacherID) {
+        this.teacherID = teacherID;
     }
 
     public String getClassName() {
@@ -81,11 +111,11 @@ public class Course {
         this.note = note;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

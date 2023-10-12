@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     app:cardCornerRadius="10dp"
+    android:id="@+id/single_Card_Course_CartView"
 
     android:elevation="5dp"
     >
@@ -13,59 +14,61 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:background="@color/lavender"
-        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/single_Card_Course_Name"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="CourseName"
-            android:textColor="@color/white"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0" />
+            android:layout_height="100dp"
+            android:background="@color/lavender"
+            android:padding="8dp">
 
-        <TextView
-            android:id="@+id/single_Card_Course_Description"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="Description"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/single_Card_Course_Name"
-            app:layout_constraintVertical_bias="0"/>
-        <TextView
-            android:id="@+id/single_Card_Course_Teacher"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="Teacher name"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_gravity="bottom|end"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/single_Card_Course_Description"
-            app:layout_constraintVertical_bias="0"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/single_Card_Course_Name"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="CourseName"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0" />
+
+            <TextView
+                android:id="@+id/single_Card_Course_Description"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Description"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/single_Card_Course_Name"
+                app:layout_constraintVertical_bias="0" />
+
+            <TextView
+                android:id="@+id/single_Card_Course_Teacher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:text="Teacher name"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/single_Card_Course_Description"
+                app:layout_constraintVertical_bias="1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:id="@+id/single_Card_Course_Click"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="36dp"
             android:background="@color/white"
             android:gravity="center|end">
             <ImageView
