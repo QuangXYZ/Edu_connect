@@ -52,7 +52,7 @@ public class TeacherHomeActivity extends AppCompatActivity {
             public void onSuccess(List<Course> courses) {
                 courseArrayList.addAll(courses);
                 courseAdapter.notifyDataSetChanged();
-                Log.d("IDcourse", "a"+courseArrayList.size());
+
 
             }
 
@@ -82,9 +82,9 @@ public class TeacherHomeActivity extends AppCompatActivity {
                 teacherHomeController.getAllCourse(new TeacherHomeController.Callback() {
                     @Override
                     public void onSuccess(List<Course> courses) {
+                        courseArrayList.clear();
                         courseArrayList.addAll(courses);
                         courseAdapter.notifyDataSetChanged();
-                        Log.d("IDcourse", "a"+courseArrayList.size());
                         swipeRefreshLayout.setRefreshing(false);
                     }
                     @Override

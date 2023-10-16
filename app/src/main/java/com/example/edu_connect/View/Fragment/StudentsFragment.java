@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.R;
 
 /**
@@ -16,6 +17,8 @@ import com.example.edu_connect.R;
  * create an instance of this fragment.
  */
 public class StudentsFragment extends Fragment {
+
+    Course course;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +65,8 @@ public class StudentsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_students, container, false);
+    }
+    public void setData(Course course) {
+        this.course = course;
     }
 }

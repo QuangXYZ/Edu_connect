@@ -101,10 +101,10 @@ public class SignupActivity extends AppCompatActivity {
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-
+                                        finish();
                                     }
                                 }).show();
-                        finish();
+
                     }
 
                     @Override

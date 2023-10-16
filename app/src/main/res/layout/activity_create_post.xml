@@ -1,9 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".View.CreatePostActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/create_post_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Tạo lớp học mới"
+        app:titleTextColor="@color/white"
+        android:background="@color/lavender"
+        app:navigationIcon="@drawable/baseline_arrow_back_24_white"
+        app:titleCentered="true"
+        android:elevation="5dp"
+        />
+    </com.google.android.material.appbar.AppBarLayout>
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/create_post_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:minHeight="40dp"
+        android:background="@drawable/course_bkg"
+        android:layout_margin="8dp"
+        android:hint="Tiêu đề"/>
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/create_post_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:minHeight="40dp"
+        android:background="@drawable/course_bkg"
+        android:layout_margin="8dp"
+        android:hint="Nội dung"/>
+    <TextView
+        android:id="@+id/create_post_file"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:minHeight="60dp"
+        android:textSize="18sp"
+        android:layout_margin="8dp"
+        android:text="Thêm tệp đính kèm"/>
+    <Button
+        android:id="@+id/create_post_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:text="Đăng"
+        android:textSize="18sp"
+        android:backgroundTint="@color/lavender"
+        app:cornerRadius="20dp"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        />
+
+
+</LinearLayout>

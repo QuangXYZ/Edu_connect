@@ -48,6 +48,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CourseMainActivity.class);
+                intent.putExtra("Course", course);
                 context.startActivity(intent);
                 context.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
 
