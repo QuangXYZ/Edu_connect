@@ -5,8 +5,23 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignupController {
 
-    public void registerfunc(String email,String username, String password, final AuthCallback callback){
-        FirebaseAuthManager.getFirebaseAuthManagerInstance().registerUser(email,username, password, new FirebaseAuthManager.AuthCallback() {
+    public void registerTeacher(String email,String username, String password, final AuthCallback callback){
+        FirebaseAuthManager.getFirebaseAuthManagerInstance().registerTeacher(email,username, password, new FirebaseAuthManager.AuthCallback() {
+            @Override
+            public void onSuccess(FirebaseUser user) {
+                callback.onSuccess(user);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                callback.onFailure(e);
+            }
+        });
+
+
+    }
+    public void registerStudent(String email,String username, String password, final AuthCallback callback){
+        FirebaseAuthManager.getFirebaseAuthManagerInstance().registerStudent(email,username, password, new FirebaseAuthManager.AuthCallback() {
             @Override
             public void onSuccess(FirebaseUser user) {
                 callback.onSuccess(user);

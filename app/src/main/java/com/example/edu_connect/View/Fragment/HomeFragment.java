@@ -74,6 +74,7 @@ public class HomeFragment extends Fragment {
                     postAdapter = new PostAdapter(postsArrayList, (Activity) getContext());
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     recyclerView.setAdapter(postAdapter);
+                    recyclerView.setNestedScrollingEnabled(true);
                 }
             }
 

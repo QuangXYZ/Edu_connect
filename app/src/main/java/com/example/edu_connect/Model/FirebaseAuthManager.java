@@ -1,5 +1,6 @@
 package com.example.edu_connect.Model;
 
+import com.example.edu_connect.Repository.StudentRepository;
 import com.example.edu_connect.Repository.TeacherRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,7 +23,7 @@ public class FirebaseAuthManager {
         return instance;
     }
 
-    public void registerUser(String email,String username, String password, final AuthCallback callback) {
+    public void registerTeacher(String email,String username, String password, final AuthCallback callback) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -31,6 +32,37 @@ public class FirebaseAuthManager {
                         UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder()
                                 .setDisplayName(username)
                                         .build();
+                        user.updateProfile(userProfileChangeRequest);
+                        user.sendEmailVerification();
+                        Student student = new Student(username,email);
+                        student.setIdTeacher(user.getUid());
+                        StudentRepository.addStudent(student, new StudentRepository.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                callback.onSuccess(user);
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+
+                            }
+                        });
+
+                    } else {
+                        // Đăng ký thất bại
+                        callback.onFailure(task.getException());
+                    }
+                });
+    }
+    public void registerStudent(String email,String username, String password, final AuthCallback callback) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Đăng ký thành công
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(username)
+                                .build();
                         user.updateProfile(userProfileChangeRequest);
                         user.sendEmailVerification();
                         Teacher teacher = new Teacher(username,email);

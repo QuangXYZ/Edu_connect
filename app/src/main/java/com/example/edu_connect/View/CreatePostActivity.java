@@ -56,7 +56,7 @@ public class CreatePostActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.create_post_toolbar);
         createBtn = findViewById(R.id.create_post_btn);
         title = findViewById(R.id.create_post_title);
-        content = findViewById(R.id.create_post_title);
+        content = findViewById(R.id.create_post_content);
         addFile = findViewById(R.id.create_post_file);
         postController = new PostController();
         fileUrl = new ArrayList<>();
