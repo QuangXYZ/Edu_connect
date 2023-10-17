@@ -2,21 +2,21 @@ package com.example.edu_connect.Model;
 
 import java.util.ArrayList;
 
-public class Student extends User{
-    String idStudent;
+public class Teacher extends User{
+    String idTeacher;
     ArrayList<String> courses;
 
 
 
-    public Student(String userName, String email) {
+    public Teacher(String userName, String email) {
         super(userName, email);
     }
 
     public String getIdTeacher() {
-        return idStudent;
+        return idTeacher;
     }
 
     public void setIdTeacher(String idTeacher) {
-        this.idStudent = idTeacher;
+        this.idTeacher = idTeacher;
     }
 }

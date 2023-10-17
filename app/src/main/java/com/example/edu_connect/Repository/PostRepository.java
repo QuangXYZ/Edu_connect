@@ -1,14 +1,15 @@
 package com.example.edu_connect.Repository;
 
+import static com.google.android.material.color.utilities.MaterialDynamicColors.error;
+
 import androidx.annotation.NonNull;
 
 import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.Model.FirebaseAuthManager;
-import com.example.edu_connect.Model.FirebaseModel;
+import com.example.edu_connect.Model.Post;
 import com.example.edu_connect.Shared.CodeGenerator;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,32 +19,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseRepository {
-    public static void addCourse(Course course,Callback callback) {
+public class PostRepository {
+    public static void addPost(Course course,Post post, PostRepository.Callback callback) {
         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Course");
         String key = root.push().getKey();
-        course.setInviteCode(CodeGenerator.generatorCode(key));
-        course.setIdCourse(key);
-
-
-        root.child(key).setValue(course)
+        root.child(course.getIdCourse()).child("Posts").child(key).setValue(post)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
-
                     @Override
                     public void onSuccess(Void unused) {
-
-                        TeacherRepository.addCourse(course, new TeacherRepository.Callback() {
-                            @Override
-                            public void onSuccess() {
-                                callback.onSuccess();
-                            }
-
-                            @Override
-                            public void onFailure(Exception e) {
-
-                            }
-                        });
-
+                        callback.onSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -52,44 +36,39 @@ public class CourseRepository {
                         callback.onFailure(e);
                     }
                 });
-    }
 
-    public static void getCourse(List<String> courseIds, final GetCourseCallback getCourseCallback){
-        List<Course> courses = new ArrayList<>();
-        for (String courseId : courseIds) {
+    }
+    public static void getPosts(String courseId, final GetPostsCallback getPostsCallback){
+        List<Post> posts = new ArrayList<>();
+
             DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Course");
-            root.child(courseId).addListenerForSingleValueEvent(new ValueEventListener() {
+            root.child(courseId).child("Posts").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        Course course = snapshot.getValue(Course.class);
-                        courses.add(course);
-                        if (courses.size()==courseIds.size()) {
-                            getCourseCallback.onSuccess(courses);
-                        }
-
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        Post post = data.getValue(Post.class);
+                        posts.add(post);
                     }
+                    getPostsCallback.onSuccess(posts);
 
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    getCourseCallback.onFailure(error.toException());
+                    getPostsCallback.onFailure(error.toException());
                 }
             });
-        }
-
 
     }
-
-
     public interface Callback {
         void onSuccess();
         void onFailure(Exception e);
     }
-    public interface GetCourseCallback {
-        void onSuccess(List<Course> course);
+    public interface GetPostsCallback {
+        void onSuccess(List<Post> posts);
         void onFailure(Exception e);
     }
-
 }
+
+
+

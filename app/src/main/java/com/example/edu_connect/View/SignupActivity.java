@@ -92,35 +92,68 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Password chưa đủ 8 kí tự", Toast.LENGTH_SHORT).show();
                 }
                 else
-                signupController.registerfunc(signupEmail.getText().toString(), signupUsername.getText().toString(),signupPassword.getText().toString(), new SignupController.AuthCallback() {
-                    @Override
-                    public void onSuccess(FirebaseUser user) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
-                        builder.setTitle("Đã gửi email xác thực")
-                                .setMessage("Vui lòng xác thực email của bạn")
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                    if (role == "Teacher") {
+                        signupController.registerTeacher(signupEmail.getText().toString(), signupUsername.getText().toString(), signupPassword.getText().toString(), new SignupController.AuthCallback() {
+                            @Override
+                            public void onSuccess(FirebaseUser user) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
+                                builder.setTitle("Đã gửi email xác thực")
+                                        .setMessage("Vui lòng xác thực email của bạn")
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                            }
+                                        }).show();
 
-                                    }
-                                }).show();
-                        finish();
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
+                                builder.setTitle("Đăng ký không thành công")
+                                        .setMessage(e.getMessage())
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        }).show();
+
+                            }
+                        });
                     }
+                    else {
+                        signupController.registerTeacher(signupEmail.getText().toString(), signupUsername.getText().toString(), signupPassword.getText().toString(), new SignupController.AuthCallback() {
+                            @Override
+                            public void onSuccess(FirebaseUser user) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
+                                builder.setTitle("Đã gửi email xác thực")
+                                        .setMessage("Vui lòng xác thực email của bạn")
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                            }
+                                        }).show();
 
-                    @Override
-                    public void onFailure(Exception e) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
-                        builder.setTitle("Đăng ký không thành công")
-                                .setMessage(e.getMessage())
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                            }
 
-                                    }
-                                }).show();
+                            @Override
+                            public void onFailure(Exception e) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
+                                builder.setTitle("Đăng ký không thành công")
+                                        .setMessage(e.getMessage())
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
 
+                                            }
+                                        }).show();
+
+                            }
+                        });
                     }
-                });
                 signupBtn.setVisibility(View.VISIBLE);
                 signupProgressbar.setVisibility(View.GONE);
             }
@@ -130,7 +163,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 role = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(), role, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
