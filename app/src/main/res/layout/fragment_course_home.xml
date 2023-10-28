@@ -34,8 +34,6 @@
                     android:layout_height="wrap_content"
                     android:text="CourseName"
                     android:textColor="@color/white"
-
-
                     android:textSize="22sp"/>
 
                 <TextView
@@ -43,11 +41,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="CourseDescription"
-
                     android:textColor="@color/white"
-
                     android:textSize="14sp"/>
-            </LinearLayout>
+               <TextView
+                   android:id="@+id/home_course_invite_code"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="invite_code"
+                   android:textColor="@color/white"
+                   android:textSize="14sp"/>
+
+
+           </LinearLayout>
        </androidx.cardview.widget.CardView>
     <com.google.android.material.card.MaterialCardView
         android:layout_margin="8dp"

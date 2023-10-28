@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.edu_connect.Model.Post;
 import com.example.edu_connect.R;
 import com.example.edu_connect.View.CourseMainActivity;
+import com.example.edu_connect.View.PostDetailActivity;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         holder.materialCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CourseMainActivity.class);
+                Intent intent = new Intent(context, PostDetailActivity.class);
                 intent.putExtra("Post", post);
                 context.startActivity(intent);
                 context.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);

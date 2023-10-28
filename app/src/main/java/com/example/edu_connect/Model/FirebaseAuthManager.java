@@ -6,6 +6,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import java.util.ArrayList;
+
 public class FirebaseAuthManager {
     private FirebaseAuth mAuth;
     private FirebaseModel firebaseModel;
@@ -23,7 +25,7 @@ public class FirebaseAuthManager {
         return instance;
     }
 
-    public void registerTeacher(String email,String username, String password, final AuthCallback callback) {
+    public void registerStudent(String email,String username, String password, final AuthCallback callback) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -35,7 +37,8 @@ public class FirebaseAuthManager {
                         user.updateProfile(userProfileChangeRequest);
                         user.sendEmailVerification();
                         Student student = new Student(username,email);
-                        student.setIdTeacher(user.getUid());
+                        student.setIdStudent(user.getUid());
+
                         StudentRepository.addStudent(student, new StudentRepository.Callback() {
                             @Override
                             public void onSuccess() {
@@ -54,7 +57,7 @@ public class FirebaseAuthManager {
                     }
                 });
     }
-    public void registerStudent(String email,String username, String password, final AuthCallback callback) {
+    public void registerTeacher(String email,String username, String password, final AuthCallback callback) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -67,6 +70,7 @@ public class FirebaseAuthManager {
                         user.sendEmailVerification();
                         Teacher teacher = new Teacher(username,email);
                         teacher.setIdTeacher(user.getUid());
+                        teacher.setCourses(null);
                         TeacherRepository.addTeacher(teacher, new TeacherRepository.Callback() {
                             @Override
                             public void onSuccess() {
