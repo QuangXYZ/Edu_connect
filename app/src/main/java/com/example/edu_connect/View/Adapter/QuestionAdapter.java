@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,6 +53,25 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
                 holder.expandableLayout.toggle();
             }
         });
+        holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.question_radio_btn_1:
+                        question.setCorrectOption(0);
+                        break;
+                    case R.id.question_radio_btn_2:
+                        question.setCorrectOption(1);
+                        break;
+                    case R.id.question_radio_btn_3:
+                        question.setCorrectOption(2);
+                        break;
+                    case R.id.question_radio_btn_4:
+                        question.setCorrectOption(3);
+                        break;
+                }
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -64,6 +85,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
         RadioButton optionA, optionB,optionC, optionD;
         LinearLayout linearLayout;
         ExpandableLayout expandableLayout;
+        RadioGroup radioGroup;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,6 +97,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
             optionD = itemView.findViewById(R.id.question_radio_btn_4);
             linearLayout = itemView.findViewById(R.id.single_question_layout);
             expandableLayout  = itemView.findViewById(R.id.expandable_layout);
+            radioGroup = itemView.findViewById(R.id.question_radio_group);
         }
     }
 

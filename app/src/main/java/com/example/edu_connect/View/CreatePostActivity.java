@@ -2,6 +2,8 @@ package com.example.edu_connect.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -18,9 +20,11 @@ import android.widget.Toast;
 import com.example.edu_connect.Controller.PostController;
 import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.R;
+import com.example.edu_connect.View.Adapter.UrlAdapter;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CreatePostActivity extends AppCompatActivity {
     Button createBtn;
@@ -32,6 +36,10 @@ public class CreatePostActivity extends AppCompatActivity {
     ArrayList<String> fileUrl;
     MaterialToolbar toolbar;
     private static final int PICK_FILE_REQUEST = 1;
+    ArrayList<Uri> uriList;
+    RecyclerView recyclerView;
+    UrlAdapter urlAdapter;
+
 
 
     @Override
@@ -48,7 +56,10 @@ public class CreatePostActivity extends AppCompatActivity {
         if (requestCode == PICK_FILE_REQUEST && resultCode == Activity.RESULT_OK) {
             if (data != null && data.getData() != null) {
                 Uri fileUri = data.getData();
-               // PostController.class(fileUri);
+                uriList.add(fileUri);
+                fileUrl.add(fileUri.toString());
+                urlAdapter.notifyDataSetChanged();
+
             }
         }
     }
@@ -58,6 +69,7 @@ public class CreatePostActivity extends AppCompatActivity {
         title = findViewById(R.id.create_post_title);
         content = findViewById(R.id.create_post_content);
         addFile = findViewById(R.id.create_post_file);
+        recyclerView = findViewById(R.id.create_post_recycle_view);
         postController = new PostController();
         fileUrl = new ArrayList<>();
         Intent intent = getIntent();
@@ -69,6 +81,12 @@ public class CreatePostActivity extends AppCompatActivity {
                 course = (Course) intent.getSerializableExtra("Course");
             }
         }
+
+        urlAdapter = new UrlAdapter(fileUrl, CreatePostActivity.this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(CreatePostActivity.this));
+        recyclerView.setAdapter(urlAdapter);
+        recyclerView.setNestedScrollingEnabled(true);
+
     }
     void settingUpListeners() {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -88,7 +106,7 @@ public class CreatePostActivity extends AppCompatActivity {
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postController.addPost(course, title.getText().toString(), content.getText().toString(), fileUrl, new PostController.Callback() {
+                postController.addPost(course, title.getText().toString(), content.getText().toString(), uriList, new PostController.Callback() {
                     @Override
                     public void onSuccess() {
                         Toast.makeText(getApplicationContext(), "Thanh cong", Toast.LENGTH_SHORT).show();

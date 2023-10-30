@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Post implements Serializable {
@@ -15,19 +16,21 @@ public class Post implements Serializable {
     String createBy;
     List<String> fileUrl;
 
-    public Post(String title, String content, String date, String createBy, List<String> fileUrl) {
+    public Post(String title, String content, String date, String createBy) {
         this.title = title;
         this.content = content;
         this.date = date;
         this.createBy = createBy;
-        this.fileUrl = fileUrl;
+        fileUrl = new ArrayList<>();
     }
 
     public Post() {
     }
 
 
-
+    public void addUrl(String url) {
+        fileUrl.add(url);
+    }
 
     public String getTitle() {
         return title;

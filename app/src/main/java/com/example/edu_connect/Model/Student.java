@@ -1,8 +1,9 @@
 package com.example.edu_connect.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Student {
+public class Student implements Serializable {
     String idStudent;
     ArrayList<String> courses;
     String userName;

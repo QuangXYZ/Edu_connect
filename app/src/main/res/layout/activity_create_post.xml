@@ -41,6 +41,12 @@
         android:background="@drawable/course_bkg"
         android:layout_margin="8dp"
         android:hint="Nội dung"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/create_post_recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        tools:listitem="@layout/single_card_student"/>
     <TextView
         android:id="@+id/create_post_file"
         android:layout_width="match_parent"

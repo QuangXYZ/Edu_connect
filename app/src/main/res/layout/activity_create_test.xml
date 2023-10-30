@@ -30,7 +30,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/create_class_name"
+                android:id="@+id/create_test_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Tieu de"

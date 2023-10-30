@@ -1,17 +1,36 @@
 package com.example.edu_connect.Model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Test {
+public class Test implements Serializable {
     String idTest;
     String title;
     List<Question> questions;
+    String date;
+    List<String> students;
 
     public Test() {
     }
 
     public String getIdTest() {
         return idTest;
+    }
+
+    public List<String> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<String> students) {
+        this.students = students;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public void setIdTest(String idTest) {

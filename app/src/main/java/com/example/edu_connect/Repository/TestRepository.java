@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestRepository {
-    public static void addTest(Course course, Post post, Callback callback) {
+    public static void addTest(Course course, Test test, Callback callback) {
         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Course");
         String key = root.push().getKey();
-        root.child(course.getIdCourse()).child("Tests").child(key).setValue(post)
+        root.child(course.getIdCourse()).child("Tests").child(key).setValue(test)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {

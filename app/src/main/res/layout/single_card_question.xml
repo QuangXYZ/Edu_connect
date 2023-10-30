@@ -75,6 +75,7 @@
         android:background="@color/white"
         >
         <RadioGroup
+            android:id="@+id/question_radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checkedButton="@id/question_radio_btn_1"

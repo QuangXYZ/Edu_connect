@@ -37,7 +37,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/course_home_recycleview"
+            android:id="@+id/test_home_recycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"

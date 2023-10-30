@@ -1,21 +1,15 @@
 package com.example.edu_connect.Controller;
 
 import com.example.edu_connect.Model.Course;
-import com.example.edu_connect.Model.FirebaseAuthManager;
-import com.example.edu_connect.Model.Post;
 import com.example.edu_connect.Model.Test;
-import com.example.edu_connect.Repository.PostRepository;
 import com.example.edu_connect.Repository.TestRepository;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class CreateTestController {
+public class TestController {
 
-    public void addTest(Course course,Post post, Callback callback) {
-        TestRepository.addTest(course, post, new TestRepository.Callback() {
+    public void addTest(Course course,Test test, Callback callback) {
+        TestRepository.addTest(course, test, new TestRepository.Callback() {
             @Override
             public void onSuccess() {
                 callback.onSuccess();

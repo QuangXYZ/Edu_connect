@@ -1,8 +1,9 @@
 package com.example.edu_connect.Model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Question {
+public class Question implements Serializable {
 
     String Title;
     List<String> options;
