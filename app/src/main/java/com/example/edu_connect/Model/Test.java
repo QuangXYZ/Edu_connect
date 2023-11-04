@@ -9,9 +9,13 @@ public class Test implements Serializable {
     List<Question> questions;
     String date;
     List<String> students;
+    List<Score> scores;
+
 
     public Test() {
     }
+
+
 
     public String getIdTest() {
         return idTest;

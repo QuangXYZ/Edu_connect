@@ -72,6 +72,7 @@ public class CreatePostActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.create_post_recycle_view);
         postController = new PostController();
         fileUrl = new ArrayList<>();
+        uriList = new ArrayList<>();
         Intent intent = getIntent();
         if (intent!=null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

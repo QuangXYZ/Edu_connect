@@ -40,12 +40,11 @@ public class StudentRepository {
 
 
     public static void addCourse(Course course, StudentRepository.Callback callback) {
-        ArrayList<String> courses = new ArrayList<>();
-        courses.add(course.getIdCourse());
+
 
         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Student");
         String uid = FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getUid();
-        root.child(uid).child("courses").setValue(courses)
+        root.child(uid).child("courses").push().setValue(course.getIdCourse())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {

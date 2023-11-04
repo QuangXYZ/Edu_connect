@@ -33,31 +33,47 @@ public class PostRepository {
         String key = root.push().getKey();
         // Tạo tham chiếu đến vị trí lưu trữ trên Firebase Storage
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference fileRef = storageReference.child(key).child(System.currentTimeMillis()+".jpg"); // Đặt tên tệp
+        // Đặt tên tệp
         for (Uri fileUri : uriList) {
+            StorageReference fileRef = storageReference.child(key).child(System.currentTimeMillis()+".jpg");
             UploadTask uploadTask = fileRef.putFile(fileUri);
-            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        post.addUrl(fileRef.getDownloadUrl().toString());
-                    }
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                callback.onFailure(task.getException());
+
+                            }
+                            return fileRef.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (!task.isSuccessful()) {
+                                post.addUrl(task.getResult().toString());
+                                root.child(course.getIdCourse()).child("Posts").child(key).setValue(post)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                callback.onSuccess();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                callback.onFailure(e);
+                                            }
+                                        });
+
+                            }
+                        }
+                    });
                 }
             });
         }
-        root.child(course.getIdCourse()).child("Posts").child(key).setValue(post)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        callback.onSuccess();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        callback.onFailure(e);
-                    }
-                });
 
     }
     public static void getPosts(String courseId, final GetPostsCallback getPostsCallback){

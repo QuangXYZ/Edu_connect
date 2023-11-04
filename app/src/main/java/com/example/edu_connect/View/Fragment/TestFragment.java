@@ -63,7 +63,7 @@ public class TestFragment extends Fragment {
             public void onSuccess(List<Test> tests) {
 
                 testList.addAll(tests);
-                testAdapter = new TestAdapter(testList, getActivity());
+                testAdapter = new TestAdapter(testList,course, getActivity());
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(testAdapter);
                 recyclerView.setNestedScrollingEnabled(true);

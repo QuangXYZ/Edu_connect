@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 import com.example.edu_connect.Controller.CourseController;
 import com.example.edu_connect.Controller.PostController;
 import com.example.edu_connect.Model.Course;

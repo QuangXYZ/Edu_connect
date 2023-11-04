@@ -77,6 +77,8 @@ public class CourseMainActivity extends AppCompatActivity {
                     case R.id.menu_home:
                         if (currentFragment != FRAGMENT_HOME) {
                             HomeFragment homeFragment = new HomeFragment();
+                            bottomNavigationView.getMenu().findItem( R.id.menu_home).setChecked(true);
+
                             homeFragment.setCourse(course);
                             replaceFagment(homeFragment);
                             currentFragment = FRAGMENT_HOME;
@@ -86,6 +88,8 @@ public class CourseMainActivity extends AppCompatActivity {
                         if (currentFragment != FRAGMENT_TEST) {
                             TestFragment testFragment = new TestFragment();
                             testFragment.setData(course);
+                            bottomNavigationView.getMenu().findItem(R.id.menu_test).setChecked(true);
+
 
                             replaceFagment(testFragment);
                             currentFragment = FRAGMENT_TEST;
@@ -93,6 +97,16 @@ public class CourseMainActivity extends AppCompatActivity {
                         break;
                     case R.id.menu_member:
                         if (currentFragment != FRAGMENT_MEMBER) {
+                            bottomNavigationView.getMenu().findItem(R.id.menu_member).setChecked(true);
+                            StudentsFragment studentsFragment = new StudentsFragment();
+                            studentsFragment.setData(course);
+                            replaceFagment(studentsFragment);
+                            currentFragment = FRAGMENT_MEMBER;
+                        }
+                        break;
+                    case R.id.menu_info:
+                        if (currentFragment != FRAGMENT_MEMBER) {
+                            bottomNavigationView.getMenu().findItem(R.id.menu_info).setChecked(true);
                             StudentsFragment studentsFragment = new StudentsFragment();
                             studentsFragment.setData(course);
                             replaceFagment(studentsFragment);

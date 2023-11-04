@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Edu_connect"
         tools:targetApi="31">
         <activity
+            android:name=".View.TestHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.TestResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".View.TakeATestActivity"
             android:exported="false" />
         <activity

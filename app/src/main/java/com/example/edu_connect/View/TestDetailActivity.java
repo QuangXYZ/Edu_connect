@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.Model.Post;
 import com.example.edu_connect.Model.Test;
 import com.example.edu_connect.R;
@@ -20,6 +21,7 @@ public class TestDetailActivity extends AppCompatActivity {
     MaterialToolbar toolbar;
     TextView title, question, date;
     Button btn;
+    Course course;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +33,7 @@ public class TestDetailActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.test_detail_toolbar);
         title = findViewById(R.id.test_detail_title);
         question = findViewById(R.id.test_detail_question);
-
+        btn = findViewById(R.id.test_detail_btn);
         date = findViewById(R.id.test_detail_date);
 
 
@@ -39,9 +41,11 @@ public class TestDetailActivity extends AppCompatActivity {
         if (intent!=null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 test = intent.getSerializableExtra("Test", Test.class);
+                course = intent.getSerializableExtra("Course", Course.class);
             }
             else {
                 test = (Test) intent.getSerializableExtra("Test");
+                course = (Course) intent.getSerializableExtra("Course");
             }
         }
 
@@ -53,6 +57,17 @@ public class TestDetailActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+            }
+        });
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TestDetailActivity.this, TakeATestActivity.class);
+                intent.putExtra("Test", test);
+                intent.putExtra("Course", course);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
                 finish();
             }
         });
