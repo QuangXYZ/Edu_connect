@@ -16,6 +16,24 @@
         android:theme="@style/Theme.Edu_connect"
         tools:targetApi="31">
         <activity
+            android:name=".View.TakeATestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.TestDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.PostDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.CreateTestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.InviteClassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.StudentHomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".View.CreatePostActivity"
             android:exported="false" />
         <activity

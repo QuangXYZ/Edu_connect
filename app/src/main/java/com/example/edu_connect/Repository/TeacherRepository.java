@@ -1,40 +1,30 @@
 package com.example.edu_connect.Repository;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.Model.FirebaseAuthManager;
+import com.example.edu_connect.Model.Post;
 import com.example.edu_connect.Model.Teacher;
 import com.example.edu_connect.Shared.CodeGenerator;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class TeacherRepository {
-        public static void addTeacher(Teacher teacher, final Callback callback) {
-            DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Teacher");
-            String uid = FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getUid();
-            root.child(uid).setValue(teacher)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            callback.onSuccess();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            callback.onFailure(e);
-                        }
-                    });
-        }
-
-
-    public static void addCourse(Course course, Callback callback) {
+    public static void addTeacher(Teacher teacher, final Callback callback) {
         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Teacher");
         String uid = FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getUid();
-        root.child(uid).child("courses").push().setValue(course.getIdCourse())
+        root.child(uid).setValue(teacher)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -49,10 +39,65 @@ public class TeacherRepository {
                 });
     }
 
-        public interface Callback {
-            void onSuccess();
-            void onFailure(Exception e);
-        }
+
+    public static void addCourse(Course course, Callback callback) {
+        ArrayList<String> courses = new ArrayList<>();
+        courses.add(course.getIdCourse());
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Teacher");
+        String uid = FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getUid();
+        root.child(uid).child("courses").setValue(courses)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        callback.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callback.onFailure(e);
+                    }
+                });
     }
+
+
+
+    public static void isTeacher(final IsTeacherCallback callback) {
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Teacher");
+        String uid = FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getUid();
+        root.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean check = false;
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    Teacher teacher = data.getValue(Teacher.class);
+
+                    if (Objects.equals(teacher.getIdTeacher(), uid)) {
+                        check = true;
+                        break;
+                    }
+                }
+                Log.d("ID Teacher", Boolean.toString(check));
+                callback.onSuccess(check);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                callback.onFailure(error.toException());
+            }
+        });
+    }
+    public interface Callback {
+        void onSuccess();
+
+        void onFailure(Exception e);
+    }
+    public interface IsTeacherCallback {
+        void onSuccess(Boolean isTeacher);
+
+        void onFailure(Exception e);
+    }
+}
 
 

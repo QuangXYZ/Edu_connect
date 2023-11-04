@@ -9,6 +9,10 @@ public class User {
         this.email = email;
     }
 
+    public User() {
+
+    }
+
     @Override
     public String toString() {
         return "User{" +

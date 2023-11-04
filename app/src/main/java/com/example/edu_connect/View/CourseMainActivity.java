@@ -85,6 +85,8 @@ public class CourseMainActivity extends AppCompatActivity {
                     case R.id.menu_test:
                         if (currentFragment != FRAGMENT_TEST) {
                             TestFragment testFragment = new TestFragment();
+                            testFragment.setData(course);
+
                             replaceFagment(testFragment);
                             currentFragment = FRAGMENT_TEST;
                         }
@@ -92,6 +94,7 @@ public class CourseMainActivity extends AppCompatActivity {
                     case R.id.menu_member:
                         if (currentFragment != FRAGMENT_MEMBER) {
                             StudentsFragment studentsFragment = new StudentsFragment();
+                            studentsFragment.setData(course);
                             replaceFagment(studentsFragment);
                             currentFragment = FRAGMENT_MEMBER;
                         }

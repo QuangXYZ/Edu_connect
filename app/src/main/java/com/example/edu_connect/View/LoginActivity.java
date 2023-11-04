@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.edu_connect.Controller.LoginController;
 import com.example.edu_connect.R;
+import com.example.edu_connect.Repository.TeacherRepository;
+import com.example.edu_connect.Shared.DataLocalManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,10 +76,35 @@ public class LoginActivity extends AppCompatActivity {
                 loginController.loginfunc(loginEmail.getText().toString(), loginPassword.getText().toString(), new LoginController.AuthCallback() {
                     @Override
                     public void onSuccess(FirebaseUser user) {
-                        Intent intent = new Intent(LoginActivity.this, TeacherHomeActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
-                        finish();
+                        TeacherRepository.isTeacher(new TeacherRepository.IsTeacherCallback() {
+                            @Override
+                            public void onSuccess(Boolean isTeacher) {
+                                Intent intent;
+                                if (isTeacher) {
+                                    intent = new Intent(LoginActivity.this, TeacherHomeActivity.class);
+                                    DataLocalManager.setUserIsTeacher(true);
+                                }
+                                else {
+                                    intent = new Intent(LoginActivity.this, StudentHomeActivity.class);
+                                    DataLocalManager.setUserIsTeacher(false);
+                                }
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+                                new MaterialAlertDialogBuilder(LoginActivity.this)
+                                        .setTitle("Lỗi")
+                                        .setMessage(e.getMessage())
+                                        .setPositiveButton("OK", (dialog, which) -> {
+                                            finish();
+                                        } ).show();
+                            }
+                        });
+
+
 
                     }
 

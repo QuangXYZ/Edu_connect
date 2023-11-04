@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 public class DataLocalManager {
     private static final String PREF_FIRST_INSTALL = "PREF_FIRST_INSTALL";
     private static final String PREF_USER = "PREF_USER";
+    private static final String USER_IS_TEACHER = "USER_IS_TEACHER";
     private static DataLocalManager instance;
     private MySharedPreferences mySharedPreferences;
 
@@ -27,6 +28,13 @@ public class DataLocalManager {
     public static void setFirstInstalled(Boolean isFirst) {
         DataLocalManager.getInstance().mySharedPreferences.putBooleanValue(PREF_FIRST_INSTALL, isFirst);
 
+    }
+    public static void setUserIsTeacher(Boolean isTeacher) {
+        DataLocalManager.getInstance().mySharedPreferences.putBooleanValue(USER_IS_TEACHER, isTeacher);
+
+    }
+    public static boolean getUserIsTeacher() {
+        return DataLocalManager.getInstance().mySharedPreferences.getBooleanValue(USER_IS_TEACHER);
     }
     public static boolean getFirstInstalled() {
         return DataLocalManager.getInstance().mySharedPreferences.getBooleanValue(PREF_FIRST_INSTALL);

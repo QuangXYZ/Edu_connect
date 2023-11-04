@@ -21,6 +21,8 @@ import com.example.edu_connect.Controller.SignupController;
 import com.example.edu_connect.R;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class SignupActivity extends AppCompatActivity {
     TextView loginText;
     EditText signupEmail;
@@ -92,7 +94,7 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Password chưa đủ 8 kí tự", Toast.LENGTH_SHORT).show();
                 }
                 else
-                    if (role == "Teacher") {
+                    if (Objects.equals(role, "Teacher")) {
                         signupController.registerTeacher(signupEmail.getText().toString(), signupUsername.getText().toString(), signupPassword.getText().toString(), new SignupController.AuthCallback() {
                             @Override
                             public void onSuccess(FirebaseUser user) {
@@ -124,11 +126,11 @@ public class SignupActivity extends AppCompatActivity {
                         });
                     }
                     else {
-                        signupController.registerTeacher(signupEmail.getText().toString(), signupUsername.getText().toString(), signupPassword.getText().toString(), new SignupController.AuthCallback() {
+                        signupController.registerStudent(signupEmail.getText().toString(), signupUsername.getText().toString(), signupPassword.getText().toString(), new SignupController.AuthCallback() {
                             @Override
                             public void onSuccess(FirebaseUser user) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
-                                builder.setTitle("Đã gửi email xác thực")
+                                builder.setTitle("Đã gửi email xác thực stdtudent")
                                         .setMessage("Vui lòng xác thực email của bạn")
                                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             @Override

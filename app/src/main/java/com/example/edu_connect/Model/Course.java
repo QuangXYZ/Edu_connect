@@ -15,7 +15,7 @@ public class Course implements Serializable {
     String inviteCode;
     String className;
     String description;
-    ArrayList<Student> students;
+    ArrayList<String> students;
     String teacherName;
     String teacherID;
     String room;
@@ -23,6 +23,7 @@ public class Course implements Serializable {
     String date;
 
     ArrayList<Post> posts;
+    ArrayList<Test> tests;
     public Course() {
     }
 
@@ -34,6 +35,14 @@ public class Course implements Serializable {
         this.room = room;
         this.note = note;
         this.date = date;
+    }
+
+    public ArrayList<Test> getTests() {
+        return tests;
+    }
+
+    public void setTests(ArrayList<Test> tests) {
+        this.tests = tests;
     }
 
     public String getIdCourse() {
@@ -86,7 +95,7 @@ public class Course implements Serializable {
         this.description = description;
     }
 
-    public ArrayList<Student> getStudents() {
+    public ArrayList<String> getStudents() {
         return students;
     }
 
@@ -116,7 +125,7 @@ public class Course implements Serializable {
         this.date = date;
     }
 
-    public void setStudents(ArrayList<Student> students) {
+    public void setStudents(ArrayList<String> students) {
         this.students = students;
     }
 
@@ -144,6 +153,4 @@ public class Course implements Serializable {
                 ", posts=" + posts +
                 '}';
     }
-
-
 }

@@ -2,27 +2,49 @@ package com.example.edu_connect.Repository;
 
 import static com.google.android.material.color.utilities.MaterialDynamicColors.error;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 
 import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.Model.FirebaseAuthManager;
 import com.example.edu_connect.Model.Post;
 import com.example.edu_connect.Shared.CodeGenerator;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PostRepository {
-    public static void addPost(Course course,Post post, PostRepository.Callback callback) {
+    public static void addPost(Course course,Post post, List<Uri> uriList, PostRepository.Callback callback) {
         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Course");
         String key = root.push().getKey();
+        // Tạo tham chiếu đến vị trí lưu trữ trên Firebase Storage
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference fileRef = storageReference.child(key).child(System.currentTimeMillis()+".jpg"); // Đặt tên tệp
+        for (Uri fileUri : uriList) {
+            UploadTask uploadTask = fileRef.putFile(fileUri);
+            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        post.addUrl(fileRef.getDownloadUrl().toString());
+                    }
+                }
+            });
+        }
         root.child(course.getIdCourse()).child("Posts").child(key).setValue(post)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

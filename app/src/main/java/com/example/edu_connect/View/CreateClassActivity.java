@@ -90,8 +90,6 @@ public class CreateClassActivity extends AppCompatActivity {
                     }
                 });
 
-
-
             }
         });
     }

@@ -2,11 +2,16 @@ package com.example.edu_connect.Controller;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+
 import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.Model.FirebaseAuthManager;
 import com.example.edu_connect.Model.Post;
-import com.example.edu_connect.Repository.CourseRepository;
 import com.example.edu_connect.Repository.PostRepository;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -18,32 +23,16 @@ import java.util.List;
 
 public class PostController {
 
-//    public void uploadFileToFirebase(Uri fileUri) {
-//
-//        // Tạo tham chiếu đến vị trí lưu trữ trên Firebase Storage
-//        StorageReference fileRef = storageReference.child("uploads/" + System.currentTimeMillis()); // Đặt tên tệp
-//
-//        fileRef.putFile(fileUri)
-//                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        // Tải lên thành công
-//                        Toast.makeText(UploadFileActivity.this, "File đã được tải lên thành công", Toast.LENGTH_SHORT).show();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        // Lỗi xảy ra
-//                        Toast.makeText(UploadFileActivity.this, "Lỗi khi tải lên: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
-    public void addPost(Course course,String title, String context, ArrayList<String> fileUrl , PostController.Callback callback) {
+
+
+
+
+    public void addPost(Course course,String title, String context, ArrayList<Uri> uriArrayList , PostController.Callback callback) {
+
         String teacherName = FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getDisplayName();
         String currentDate = DateFormat.getDateTimeInstance().format(new Date());
-        Post post = new Post(title, context, currentDate, teacherName, fileUrl);
-        PostRepository.addPost(course, post, new PostRepository.Callback() {
+        Post post = new Post(title, context, currentDate, teacherName);
+        PostRepository.addPost(course, post,uriArrayList, new PostRepository.Callback() {
             @Override
             public void onSuccess() {
                 callback.onSuccess();

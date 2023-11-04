@@ -1,69 +1,92 @@
 package com.example.edu_connect.View.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.example.edu_connect.Controller.TestController;
 import com.example.edu_connect.Model.Course;
+import com.example.edu_connect.Model.Test;
 import com.example.edu_connect.R;
+import com.example.edu_connect.Shared.DataLocalManager;
+import com.example.edu_connect.View.Adapter.TestAdapter;
+import com.example.edu_connect.View.CourseMainActivity;
+import com.example.edu_connect.View.CreateTestActivity;
+import com.example.edu_connect.View.LoginActivity;
+import com.example.edu_connect.View.StudentHomeActivity;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TestFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class TestFragment extends Fragment {
     Course course;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    LinearLayout addTest;
+    RecyclerView recyclerView;
+    List<Test> testList;
+    TestAdapter testAdapter;
+    TestController testController;
     public TestFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TestFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TestFragment newInstance(String param1, String param2) {
-        TestFragment fragment = new TestFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_test, container, false);
+        View view = inflater.inflate(R.layout.fragment_test, container, false);
+        init(view);
+        settingUpListeners();
+        return view;
+    }
+    void init(View view){
+        addTest = view.findViewById(R.id.test_add);
+        recyclerView = view.findViewById(R.id.test_home_recycle_view);
+        testList = new ArrayList<>();
+        testController = new TestController();
+        testController.getTest(course.getIdCourse(), new TestController.GetTestsCallback() {
+            @Override
+            public void onSuccess(List<Test> tests) {
+
+                testList.addAll(tests);
+                testAdapter = new TestAdapter(testList, getActivity());
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setAdapter(testAdapter);
+                recyclerView.setNestedScrollingEnabled(true);
+            }
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
+
+
+    }
+    void settingUpListeners(){
+        addTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), CreateTestActivity.class);
+                intent.putExtra("Course", course);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+
+            }
+        });
     }
     public void setData(Course course) {
         this.course = course;

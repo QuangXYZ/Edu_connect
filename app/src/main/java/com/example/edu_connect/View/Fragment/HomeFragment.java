@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
     Course course;
     TextView name;
     TextView description;
+    TextView inviteCode;
     RecyclerView recyclerView;
     TextView emptyPost;
     PostAdapter postAdapter;
@@ -58,6 +59,7 @@ public class HomeFragment extends Fragment {
         description = view.findViewById(R.id.home_course_description);
         recyclerView = view.findViewById(R.id.course_home_recycleview);
         emptyPost = view.findViewById(R.id.course_home_no_post);
+        inviteCode = view.findViewById(R.id.home_course_invite_code);
 
         postsArrayList = new ArrayList<>();
         postController = new PostController();
@@ -85,9 +87,9 @@ public class HomeFragment extends Fragment {
         });
 
 
-        Log.d("course", course.toString());
         name.setText(course.getClassName());
         description.setText(course.getDescription());
+        inviteCode.setText(course.getInviteCode());
 
 
 

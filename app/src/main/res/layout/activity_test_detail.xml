@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View.TestDetailActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/test_detail_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Chi tiết"
+            app:titleTextColor="@color/white"
+            app:titleCentered="true"
+            android:background="@color/lavender"
+            app:navigationIcon="@drawable/baseline_arrow_back_24_white"
+            android:elevation="5dp"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/test_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title post"
+            android:layout_margin="8dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/test_detail_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Content post"
+            android:layout_margin="8dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+
+            />
+
+        <TextView
+            android:id="@+id/test_detail_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:layout_margin="8dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            />
+        <Button
+            android:id="@+id/test_detail_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bat dau"
+            android:textSize="16dp"
+            android:layout_gravity="center_horizontal"
+            />
+    </LinearLayout>
+
+</LinearLayout>

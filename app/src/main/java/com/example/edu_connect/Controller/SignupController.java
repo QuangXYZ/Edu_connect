@@ -1,6 +1,7 @@
 package com.example.edu_connect.Controller;
 
 import com.example.edu_connect.Model.FirebaseAuthManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SignupController {
