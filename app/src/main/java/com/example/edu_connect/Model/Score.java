@@ -1,6 +1,8 @@
 package com.example.edu_connect.Model;
 
-public class Score {
+import java.io.Serializable;
+
+public class Score implements Serializable {
     String uid;
     int score;
 

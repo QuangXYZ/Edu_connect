@@ -62,9 +62,15 @@ public class TakeATestActivity extends AppCompatActivity {
                 course = (Course) intent.getSerializableExtra("Course");
             }
         }
-        questionArrayList.addAll(test.getQuestions());
-        for (Question q : questionArrayList) {
-            q.setCorrectOption(-1);
+//        questionArrayList = (ArrayList<Question>) test.getQuestions().clone();
+
+
+        for (Question q : test.getQuestions()) {
+            Question question = new Question();
+            question.setTitle(q.getTitle());
+            question.setOptions(q.getOptions());
+            question.setCorrectOption(-1);
+            questionArrayList.add(question);
         }
         questionAdapter = new QuestionAdapter(questionArrayList,TakeATestActivity.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(TakeATestActivity.this));

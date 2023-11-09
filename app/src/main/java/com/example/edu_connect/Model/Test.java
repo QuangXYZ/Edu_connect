@@ -1,15 +1,17 @@
 package com.example.edu_connect.Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Test implements Serializable {
     String idTest;
     String title;
-    List<Question> questions;
+    ArrayList<Question> questions;
     String date;
-    List<String> students;
-    List<Score> scores;
+    Map<String,String> students;
+    Map<String,Score> scores;
 
 
     public Test() {
@@ -21,12 +23,20 @@ public class Test implements Serializable {
         return idTest;
     }
 
-    public List<String> getStudents() {
+    public Map<String, String> getStudents() {
         return students;
     }
 
-    public void setStudents(List<String> students) {
+    public void setStudents(Map<String, String> students) {
         this.students = students;
+    }
+
+    public Map<String, Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(Map<String, Score> scores) {
+        this.scores = scores;
     }
 
     public String getDate() {
@@ -49,11 +59,11 @@ public class Test implements Serializable {
         this.title = title;
     }
 
-    public List<Question> getQuestions() {
+    public ArrayList<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
     }
 }

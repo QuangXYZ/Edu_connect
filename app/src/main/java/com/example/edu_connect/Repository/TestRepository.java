@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.Model.FirebaseAuthManager;
-import com.example.edu_connect.Model.Post;
 import com.example.edu_connect.Model.Score;
+import com.example.edu_connect.Model.Teacher;
 import com.example.edu_connect.Model.Test;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,13 +16,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TestRepository {
     public static void addTest(Course course, Test test, Callback callback) {
         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Course");
         String key = root.push().getKey();
         test.setIdTest(key);
+        
+
         root.child(course.getIdCourse()).child("Tests").child(key).setValue(test)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
