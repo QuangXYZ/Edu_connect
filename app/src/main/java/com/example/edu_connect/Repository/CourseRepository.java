@@ -130,6 +130,24 @@ public class CourseRepository {
                 });
     }
 
+    public static void storeCourse(Course course,Callback callback) {
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Course");
+        root.child(course.getIdCourse()).child("isStored").setValue(true)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callback.onFailure(e);
+                    }
+                });
+    }
+
     public interface Callback {
         void onSuccess();
         void onFailure(Exception e);

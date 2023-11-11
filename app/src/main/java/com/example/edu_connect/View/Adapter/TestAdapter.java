@@ -12,9 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edu_connect.Model.Course;
+import com.example.edu_connect.Model.FirebaseAuthManager;
 import com.example.edu_connect.Model.Test;
 import com.example.edu_connect.R;
+import com.example.edu_connect.Shared.DataLocalManager;
 import com.example.edu_connect.View.CourseMainActivity;
+import com.example.edu_connect.View.TeacherTestChooseActivity;
 import com.example.edu_connect.View.TestDetailActivity;
 import com.google.android.material.card.MaterialCardView;
 
@@ -47,7 +50,11 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.MyViewHolder>{
         holder.materialCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, TestDetailActivity.class);
+                Intent intent;
+                if (DataLocalManager.getUserIsTeacher()) {
+                    intent = new Intent(context, TeacherTestChooseActivity.class);
+                }
+                else intent = new Intent(context, TestDetailActivity.class);
                 intent.putExtra("Test", test);
                 intent.putExtra("Course", course);
                 context.startActivity(intent);

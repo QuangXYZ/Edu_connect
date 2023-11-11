@@ -13,7 +13,7 @@
                 android:icon="@drawable/baseline_settings_24"
                 android:title="Settings"/>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_stored"
                 android:icon="@drawable/baseline_storage_24"
                 android:title="Luu tru"/>
         </group>

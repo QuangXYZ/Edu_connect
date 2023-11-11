@@ -45,7 +45,7 @@ public class TeacherRepository {
 
         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Teacher");
         String uid = FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getUid();
-        root.child(uid).child("courses").push().setValue(course.getIdCourse())
+        root.child(uid).child("courses").child(course.getIdCourse()).setValue(course.getIdCourse())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -63,23 +63,18 @@ public class TeacherRepository {
 
 
     public static void isTeacher(final IsTeacherCallback callback) {
-        DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Teacher");
+
         String uid = FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getUid();
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Teacher").child(uid);
         root.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean check = false;
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    Teacher teacher = data.getValue(Teacher.class);
-
-                    if (Objects.equals(teacher.getIdTeacher(), uid)) {
-                        check = true;
-                        break;
-                    }
+                if (snapshot.exists()) {
+                    check = true;
                 }
                 Log.d("ID Teacher", Boolean.toString(check));
                 callback.onSuccess(check);
-
             }
 
             @Override

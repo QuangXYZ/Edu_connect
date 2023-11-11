@@ -54,7 +54,7 @@ public class StudentHomeActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.student_home_swipe);
         firebaseAuthManager = new FirebaseAuthManager();
         courseArrayList = new ArrayList<>();
-        courseAdapter = new CourseAdapter(courseArrayList,StudentHomeActivity.this);
+        courseAdapter = new CourseAdapter(courseArrayList,false,StudentHomeActivity.this);
         courseRecycleView.setLayoutManager(new LinearLayoutManager(StudentHomeActivity.this));
         courseRecycleView.setAdapter(courseAdapter);
         studentHomeController.getAllCourse(new StudentHomeController.Callback() {
@@ -91,6 +91,10 @@ public class StudentHomeActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 if (id == R.id.main_home) {
 
+                }
+                if (id == R.id.nav_stored) {
+                    Intent intent = new Intent(StudentHomeActivity.this, CourseStoredActivity.class);
+                    startActivity(intent);
                 }
                 else if (id == R.id.nav_logout) {
                     Intent intent = new Intent(StudentHomeActivity.this, LoginActivity.class);
@@ -133,5 +137,13 @@ public class StudentHomeActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

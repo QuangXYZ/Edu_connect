@@ -56,7 +56,7 @@ public class TeacherHomeActivity extends AppCompatActivity  {
         teacherHomeController = new TeacherHomeController();
         swipeRefreshLayout = findViewById(R.id.Teacher_home_swipe);
         courseArrayList = new ArrayList<>();
-        courseAdapter = new CourseAdapter(courseArrayList,TeacherHomeActivity.this);
+        courseAdapter = new CourseAdapter(courseArrayList,false,TeacherHomeActivity.this);
         courseRecycleView.setLayoutManager(new LinearLayoutManager(TeacherHomeActivity.this));
         courseRecycleView.setAdapter(courseAdapter);
         firebaseAuthManager = new FirebaseAuthManager();

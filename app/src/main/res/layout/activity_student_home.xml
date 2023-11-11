@@ -27,6 +27,7 @@
             android:elevation="5dp"
             app:title="Trang chủ"
             app:titleCentered="true"
+            app:navigationIcon="@drawable/baseline_menu_24"
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 

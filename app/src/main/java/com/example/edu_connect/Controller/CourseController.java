@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CourseController {
     public void getStudent(List<String> studentIds, final GetStudentCallback getStudentCallback) {
-        StudentRepository.getStudents(studentIds, new StudentRepository.GetStudentCallback() {
+        StudentRepository.getStudents(studentIds, new StudentRepository.GetStudentsCallback() {
             @Override
             public void onSuccess(List<Student> students) {
                 getStudentCallback.onSuccess(students);
