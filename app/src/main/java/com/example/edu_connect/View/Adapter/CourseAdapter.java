@@ -30,12 +30,12 @@ import java.util.List;
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHolder>{
     List<Course> courses;
     Activity context;
-    boolean isStored;
 
-    public CourseAdapter(List<Course> courses,boolean isStored, Activity context) {
+
+    public CourseAdapter(List<Course> courses, Activity context) {
         this.courses = courses;
         this.context = context;
-        this.isStored = isStored;
+
     }
 
     @NonNull
@@ -47,14 +47,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     }
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
         Course course = courses.get(position);
-        if (!isStored) {
-            if (course.isStored()) return;
-        }
-        if (isStored) {
-            if (!course.isStored()) return;
-        }
+
 
         holder.name.setText(course.getClassName());
         holder.description.setText(course.getDescription());
@@ -94,6 +88,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
                                                 @Override
                                                 public void onSuccess() {
                                                     courses.remove(course);
+                                                    notifyDataSetChanged();
                                                 }
 
                                                 @Override
@@ -112,6 +107,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
                 popupMenu.show();
             }
         });
+    }
+    public void deleteItem(int index) {
+        courses.remove(index);
+        notifyDataSetChanged();
     }
 
     @Override
