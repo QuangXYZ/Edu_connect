@@ -34,6 +34,7 @@ public class PostRepository {
         // Tạo tham chiếu đến vị trí lưu trữ trên Firebase Storage
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         // Đặt tên tệp
+        if (uriList.size() != 0)
         for (Uri fileUri : uriList) {
             StorageReference fileRef = storageReference.child(key).child(System.currentTimeMillis()+".jpg");
             UploadTask uploadTask = fileRef.putFile(fileUri);
@@ -73,6 +74,22 @@ public class PostRepository {
                     });
                 }
             });
+        }
+        else {
+            root.child(course.getIdCourse()).child("Posts").child(key).setValue(post)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            callback.onSuccess();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            callback.onFailure(e);
+                        }
+                    });
+
         }
 
     }

@@ -132,12 +132,12 @@ public class CourseRepository {
 
     public static void storeCourse(Course course,Callback callback) {
         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Course");
-        root.child(course.getIdCourse()).child("isStored").setValue(true)
+        root.child(course.getIdCourse()).child("stored").setValue(true)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
 
                     @Override
                     public void onSuccess(Void unused) {
-
+                        callback.onSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

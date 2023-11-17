@@ -16,6 +16,7 @@ import android.widget.Switch;
 
 import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.R;
+import com.example.edu_connect.View.Fragment.CourseInfoFragment;
 import com.example.edu_connect.View.Fragment.HomeFragment;
 import com.example.edu_connect.View.Fragment.StudentsFragment;
 import com.example.edu_connect.View.Fragment.TestFragment;
@@ -29,6 +30,7 @@ public class CourseMainActivity extends AppCompatActivity {
     private static final int FRAGMENT_HOME = 1;
     private static final int FRAGMENT_TEST = 2;
     private static final int FRAGMENT_MEMBER = 3;
+    private static final int FRAGMENT_DETAIL= 4;
     private int currentFragment = FRAGMENT_HOME;
     Course course;
     MaterialToolbar toolbar;
@@ -105,12 +107,12 @@ public class CourseMainActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.menu_info:
-                        if (currentFragment != FRAGMENT_MEMBER) {
+                        if (currentFragment != FRAGMENT_DETAIL) {
                             bottomNavigationView.getMenu().findItem(R.id.menu_info).setChecked(true);
-                            StudentsFragment studentsFragment = new StudentsFragment();
-                            studentsFragment.setData(course);
-                            replaceFagment(studentsFragment);
-                            currentFragment = FRAGMENT_MEMBER;
+                            CourseInfoFragment courseInfoFragment = new CourseInfoFragment();
+                            courseInfoFragment.setCourse(course);
+                            replaceFagment(courseInfoFragment);
+                            currentFragment = FRAGMENT_DETAIL;
                         }
                         break;
                 }

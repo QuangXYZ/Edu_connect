@@ -25,20 +25,22 @@
         android:id="@+id/create_post_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="100dp"
         android:textSize="18sp"
         android:padding="8dp"
-        android:minHeight="40dp"
-        android:background="@drawable/course_bkg"
+
+        android:background="@drawable/post_textviewa_bkg"
         android:layout_margin="8dp"
         android:hint="Tiêu đề"/>
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/create_post_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="200dp"
         android:textSize="18sp"
         android:padding="8dp"
-        android:minHeight="40dp"
-        android:background="@drawable/course_bkg"
+
+        android:background="@drawable/post_textviewa_bkg"
         android:layout_margin="8dp"
         android:hint="Nội dung"/>
     <androidx.recyclerview.widget.RecyclerView

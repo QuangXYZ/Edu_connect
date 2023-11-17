@@ -14,6 +14,7 @@
 
         >
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/test_add"
             android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -23,7 +24,7 @@
             app:strokeColor="@color/black"
             >
             <LinearLayout
-                android:id="@+id/test_add"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical">

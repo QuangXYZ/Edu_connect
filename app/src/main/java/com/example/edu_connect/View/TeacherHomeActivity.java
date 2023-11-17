@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.edu_connect.Controller.TeacherHomeController;
@@ -43,6 +44,7 @@ public class TeacherHomeActivity extends AppCompatActivity  {
     ActionBarDrawerToggle actionBarDrawerToggle;
     MaterialToolbar toolbar;
     FirebaseAuthManager firebaseAuthManager;
+    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,14 +58,15 @@ public class TeacherHomeActivity extends AppCompatActivity  {
         teacherHomeController = new TeacherHomeController();
         swipeRefreshLayout = findViewById(R.id.Teacher_home_swipe);
         courseArrayList = new ArrayList<>();
-        courseAdapter = new CourseAdapter(courseArrayList,false,TeacherHomeActivity.this);
+        courseAdapter = new CourseAdapter(courseArrayList,TeacherHomeActivity.this);
         courseRecycleView.setLayoutManager(new LinearLayoutManager(TeacherHomeActivity.this));
         courseRecycleView.setAdapter(courseAdapter);
         firebaseAuthManager = new FirebaseAuthManager();
         teacherHomeController.getAllCourse(new TeacherHomeController.Callback() {
             @Override
             public void onSuccess(List<Course> courses) {
-                courseArrayList.addAll(courses);
+                for (Course course : courses)
+                    if (!course.isStored()) courseArrayList.add(course);
                 courseAdapter.notifyDataSetChanged();
 
 
@@ -86,24 +89,13 @@ public class TeacherHomeActivity extends AppCompatActivity  {
         // to toggle the button
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.main_home) {
+        navigationView = findViewById(R.id.nav_view);
+        View view = navigationView.getHeaderView(0);
+        TextView headerName = view.findViewById(R.id.header_navigation_user_name);
+        headerName.setText(FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getDisplayName());
+        TextView headerEmail = view.findViewById(R.id.header_navigation_user_email);
+        headerEmail.setText(FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getEmail());
 
-                }
-                else if (id == R.id.nav_logout) {
-                    Intent intent = new Intent(TeacherHomeActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    firebaseAuthManager.logoutUser();
-
-                }
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
 
         // to make the Navigation drawer icon always appear on the action bar
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -128,6 +120,33 @@ public class TeacherHomeActivity extends AppCompatActivity  {
                 startActivity(intent);
             }
         });
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.main_home) {
+
+                }
+                if (id == R.id.nav_stored) {
+                    Intent intent = new Intent(TeacherHomeActivity.this, CourseStoredActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                }
+                if (id == R.id.nav_profile) {
+                    Intent intent = new Intent(TeacherHomeActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                }
+                else if (id == R.id.nav_logout) {
+                    Intent intent = new Intent(TeacherHomeActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    firebaseAuthManager.logoutUser();
+
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -135,7 +154,8 @@ public class TeacherHomeActivity extends AppCompatActivity  {
                     @Override
                     public void onSuccess(List<Course> courses) {
                         courseArrayList.clear();
-                        courseArrayList.addAll(courses);
+                        for (Course course : courses)
+                            if (!course.isStored()) courseArrayList.add(course);
                         courseAdapter.notifyDataSetChanged();
                         swipeRefreshLayout.setRefreshing(false);
                     }

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.Model.FirebaseAuthManager;
 import com.example.edu_connect.Model.Post;
+import com.example.edu_connect.Model.Student;
 import com.example.edu_connect.Model.Teacher;
 import com.example.edu_connect.Shared.CodeGenerator;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,22 +46,49 @@ public class TeacherRepository {
 
         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Teacher");
         String uid = FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getUid();
-        root.child(uid).child("courses").child(course.getIdCourse()).setValue(course.getIdCourse())
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        callback.onSuccess();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        callback.onFailure(e);
-                    }
-                });
+        getTeacher(uid, new TeacherRepository.GetTeacherCallback() {
+            @Override
+            public void onSuccess(Teacher teacher) {
+                teacher.addCourses(course.getIdCourse());
+                root.child(uid).setValue(teacher).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                callback.onSuccess();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                callback.onFailure(e);
+                            }
+                        });
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                callback.onFailure(e);
+            }
+        });
     }
 
 
+    public static void getTeacher(String uid, final GetTeacherCallback getTeacherCallback) {
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Teacher");
+        root.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+
+                    Teacher teacher = snapshot.getValue(Teacher.class);
+                    getTeacherCallback.onSuccess(teacher);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                getTeacherCallback.onFailure(error.toException());
+            }
+        });
+    }
 
     public static void isTeacher(final IsTeacherCallback callback) {
 
@@ -91,6 +119,10 @@ public class TeacherRepository {
     public interface IsTeacherCallback {
         void onSuccess(Boolean isTeacher);
 
+        void onFailure(Exception e);
+    }
+    public interface GetTeacherCallback {
+        void onSuccess(Teacher teacher);
         void onFailure(Exception e);
     }
 }

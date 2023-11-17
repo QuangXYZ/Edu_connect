@@ -9,9 +9,9 @@
                 android:icon="@drawable/baseline_home_24"
                 />
             <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/baseline_settings_24"
-                android:title="Settings"/>
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/baseline_person_24_lavender"
+                android:title="Tai khoan"/>
             <item
                 android:id="@+id/nav_stored"
                 android:icon="@drawable/baseline_storage_24"

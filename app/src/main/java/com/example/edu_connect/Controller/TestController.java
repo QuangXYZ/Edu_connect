@@ -47,7 +47,7 @@ public class TestController {
             }
         }
 
-        TestRepository.submitTestScore(course.getIdCourse(), test.getIdTest(), score, new TestRepository.Callback() {
+        TestRepository.submitTestScore(course.getIdCourse(), test.getIdTest(), Math.ceil((score/questions.size())*1000)/100, new TestRepository.Callback() {
             @Override
             public void onSuccess() {
 

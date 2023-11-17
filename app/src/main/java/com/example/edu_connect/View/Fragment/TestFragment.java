@@ -25,6 +25,7 @@ import com.example.edu_connect.View.CreateTestActivity;
 import com.example.edu_connect.View.LoginActivity;
 import com.example.edu_connect.View.StudentHomeActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ import java.util.List;
 
 public class TestFragment extends Fragment {
     Course course;
-    LinearLayout addTest;
+    MaterialCardView addTest;
     RecyclerView recyclerView;
     List<Test> testList;
     TestAdapter testAdapter;

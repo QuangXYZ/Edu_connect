@@ -28,5 +28,15 @@
         android:layout_height="match_parent"
         android:padding="8dp"
         tools:listitem="@layout/single_score_student" />
+    <TextView
+        android:id="@+id/teacher_test_result_no_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chưa có kết quả"
+        android:textColor="@color/gray"
+        android:layout_gravity="center_horizontal"
+        android:padding="20dp"
+        android:visibility="gone"
+        android:textSize="14sp"/>
 
 </LinearLayout>

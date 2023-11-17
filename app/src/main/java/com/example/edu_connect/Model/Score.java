@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class Score implements Serializable {
     String uid;
-    int score;
+    double score;
 
     public Score() {
     }
 
-    public Score(String uid, int score) {
+    public Score(String uid, double score) {
         this.uid = uid;
         this.score = score;
     }
@@ -22,11 +22,11 @@ public class Score implements Serializable {
         this.uid = uid;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 }

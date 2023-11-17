@@ -30,6 +30,7 @@ import java.util.Map;
      RecyclerView recyclerView;
      TestResultAdapter testResultAdapter;
      List<Score> scoreList;
+     TextView noResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ import java.util.Map;
     }
      void init(){
          toolbar = findViewById(R.id.teacher_test_toolbar);
+         noResult = findViewById(R.id.teacher_test_result_no_result);
 
 
 
@@ -55,15 +57,22 @@ import java.util.Map;
          }
          recyclerView = findViewById(R.id.teacher_test_result_recycle_view);
          scoreList = new ArrayList<>();
-         for (Map.Entry<String,Score> entry : test.getScores().entrySet()) {
-             scoreList.add(entry.getValue());
+         if (!test.getScores().entrySet().isEmpty()) {
+             for (Map.Entry<String,Score> entry : test.getScores().entrySet()) {
+                 scoreList.add(entry.getValue());
+             }
+             testResultAdapter = new TestResultAdapter(scoreList, TeacherTestResultActivity.this);
+             recyclerView.setLayoutManager(new LinearLayoutManager(TeacherTestResultActivity.this));
+             recyclerView.setAdapter(testResultAdapter);
+             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),LinearLayoutManager.VERTICAL);
+             recyclerView.addItemDecoration(dividerItemDecoration);
+             recyclerView.setNestedScrollingEnabled(true);
          }
-         testResultAdapter = new TestResultAdapter(scoreList, TeacherTestResultActivity.this);
-         recyclerView.setLayoutManager(new LinearLayoutManager(TeacherTestResultActivity.this));
-         recyclerView.setAdapter(testResultAdapter);
-         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),LinearLayoutManager.VERTICAL);
-         recyclerView.addItemDecoration(dividerItemDecoration);
-         recyclerView.setNestedScrollingEnabled(true);
+         else {
+             noResult.setVisibility(View.VISIBLE);
+
+         }
+
          
      }
      void settingUpListeners() {

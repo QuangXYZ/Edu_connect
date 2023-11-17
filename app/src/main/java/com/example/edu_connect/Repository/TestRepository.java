@@ -64,7 +64,7 @@ public class TestRepository {
         });
 
     }
-    public static void submitTestScore(String courseId, String testId, int score, final Callback callback) {
+    public static void submitTestScore(String courseId, String testId, double score, final Callback callback) {
         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Course");
         String uid = FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getUid();
         root.child(courseId).child("Tests").child(testId).child("students").push().setValue(uid)
