@@ -42,6 +42,23 @@ public class TestRepository {
                 });
 
     }
+    public static void deleteTest(Course course, Test test, Callback callback) {
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Course");
+
+        root.child(course.getIdCourse()).child("Tests").child(test.getIdTest()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                callback.onSuccess();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onFailure(e);
+            }
+        });
+
+
+    }
     public static void getTests(String courseId, final GetTestsCallback getTestsCallback) {
         List<Test> tests = new ArrayList<>();
 

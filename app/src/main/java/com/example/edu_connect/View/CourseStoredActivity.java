@@ -17,6 +17,7 @@ import com.example.edu_connect.Controller.TestController;
 import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.Model.Question;
 import com.example.edu_connect.R;
+import com.example.edu_connect.Shared.DataLocalManager;
 import com.example.edu_connect.View.Adapter.CourseAdapter;
 import com.example.edu_connect.View.Adapter.QuestionAdapter;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -31,6 +32,7 @@ public class CourseStoredActivity extends AppCompatActivity {
     ArrayList<Course> courseArrayList;
     SwipeRefreshLayout swipeRefreshLayout;
     CourseAdapter courseAdapter;
+    TeacherHomeController teacherHomeController;
     StudentHomeController studentHomeController;
     RecyclerView recyclerView;
     @Override
@@ -45,10 +47,31 @@ public class CourseStoredActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.course_stored_swipe);
         recyclerView = findViewById(R.id.student_stored_list_course);
         studentHomeController = new StudentHomeController();
+        teacherHomeController = new TeacherHomeController();
         courseArrayList = new ArrayList<>();
         courseAdapter = new CourseAdapter(courseArrayList,CourseStoredActivity.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(CourseStoredActivity.this));
         recyclerView.setAdapter(courseAdapter);
+        if (DataLocalManager.getUserIsTeacher()){
+            teacherHomeController.getAllCourse(new TeacherHomeController.Callback() {
+                @Override
+                public void onSuccess(List<Course> courses) {
+                    for (Course course : courses)
+                        if (course.isStored()) courseArrayList.add(course);
+
+                    courseAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    new MaterialAlertDialogBuilder(CourseStoredActivity.this)
+                            .setTitle("Error")
+                            .setMessage(e.getMessage())
+                            .setPositiveButton("OK", (dialog, which) -> {} ).show();
+                }
+            });
+        }
+        else
         studentHomeController.getAllCourse(new StudentHomeController.Callback() {
             @Override
             public void onSuccess(List<Course> courses) {

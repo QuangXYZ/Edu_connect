@@ -84,6 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
+        android:paddingBottom="100dp"
         tools:listitem="@layout/single_card_course_home"/>
 
         <TextView

@@ -36,7 +36,7 @@ public class PostRepository {
         // Đặt tên tệp
         if (uriList.size() != 0)
         for (Uri fileUri : uriList) {
-            StorageReference fileRef = storageReference.child(key).child(System.currentTimeMillis()+".jpg");
+            StorageReference fileRef = storageReference.child("Images").child(System.currentTimeMillis()+".jpg");
             UploadTask uploadTask = fileRef.putFile(fileUri);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -53,7 +53,7 @@ public class PostRepository {
                     }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
-                            if (!task.isSuccessful()) {
+                            if (task.isSuccessful()) {
                                 post.addUrl(task.getResult().toString());
                                 root.child(course.getIdCourse()).child("Posts").child(key).setValue(post)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {

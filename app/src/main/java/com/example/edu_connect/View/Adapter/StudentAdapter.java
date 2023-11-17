@@ -15,6 +15,7 @@ import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.Model.Student;
 import com.example.edu_connect.R;
 import com.example.edu_connect.View.CourseMainActivity;
+import com.example.edu_connect.View.DetailMemberCourse;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
@@ -39,6 +40,15 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
     public void onBindViewHolder(@NonNull StudentAdapter.MyViewHolder holder, int position) {
         Student student = students.get(position);
         holder.name.setText(student.getUserName());
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailMemberCourse.class);
+                intent.putExtra("Student", student);
+                context.startActivity(intent);
+                context.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
     }
 
     @Override

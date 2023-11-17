@@ -24,6 +24,20 @@ public class TestController {
             }
         });
     }
+    public void deleteTest(Course course,Test test, Callback callback) {
+        TestRepository.deleteTest(course, test, new TestRepository.Callback() {
+            @Override
+            public void onSuccess() {
+                callback.onSuccess();
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                callback.onFailure(e);
+
+            }
+        });
+    }
     public void getTest(String courseId, final GetTestsCallback getTestsCallback){
         TestRepository.getTests(courseId, new TestRepository.GetTestsCallback() {
             @Override

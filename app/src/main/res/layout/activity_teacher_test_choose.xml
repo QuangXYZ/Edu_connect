@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/test_detail_toolbar"
+            android:id="@+id/teacher_test_choose"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="Chi tiết"

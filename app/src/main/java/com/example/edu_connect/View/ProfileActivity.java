@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,8 +16,9 @@ import com.example.edu_connect.R;
 public class ProfileActivity extends AppCompatActivity {
 
     TextView name, mssv, className, date, sdt, email;
-    LinearLayout backBtn;
+    ImageView backBtn;
     ProfileController profileController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

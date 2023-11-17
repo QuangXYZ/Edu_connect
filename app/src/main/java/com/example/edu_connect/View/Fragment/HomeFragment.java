@@ -25,6 +25,8 @@ import com.example.edu_connect.View.CreatePostActivity;
 import com.example.edu_connect.View.TeacherHomeActivity;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -73,6 +75,7 @@ public class HomeFragment extends Fragment {
                     recyclerView.setVisibility(View.GONE);
                 }
                 else {
+                    Collections.reverse(postsArrayList);
                     postAdapter = new PostAdapter(postsArrayList, (Activity) getContext());
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     recyclerView.setAdapter(postAdapter);
