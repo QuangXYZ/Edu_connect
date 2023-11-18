@@ -4,11 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".View.StatisticActivity">
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/statistic_line_chart"
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/statistic_bar_chart"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         />
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/statistic_pie_chart"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:visibility="gone"
+        />
+    <RadioGroup
+        android:id="@+id/statistic_rd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:checkedButton="@id/statistic_bar_chart">
+        <RadioButton
+            android:id="@+id/statistic_rd_bar_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bar chart"/>
+        <RadioButton
+            android:id="@+id/statistic_rd_pie_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pie chart"/>
+    </RadioGroup>
+    <TextView
+        android:id="@+id/statistic_sum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số sinh viên đã làm: "
+        android:textStyle="bold"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/statistic_avg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Điểm trung bình: "
+        android:textStyle="bold"
+        android:textSize="16sp"
+        />
+    <TextView
+        android:id="@+id/statistic_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Điểm trung vị: "
+        android:textStyle="bold"
+        android:textSize="16sp"
+        />
+
 
 </LinearLayout>

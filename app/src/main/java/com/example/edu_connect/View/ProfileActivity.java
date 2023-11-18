@@ -2,8 +2,10 @@ package com.example.edu_connect.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     TextView name, mssv, className, date, sdt, email;
     ImageView backBtn;
+    Button editBtn;
     ProfileController profileController;
 
     @Override
@@ -34,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         sdt = findViewById(R.id.profile_phone);
         email = findViewById(R.id.profile_email);
         backBtn = findViewById(R.id.profile_back);
+        editBtn = findViewById(R.id.profile_edit_btn);
         profileController = new ProfileController();
         profileController.getProfile(new ProfileController.Callback() {
             @Override
@@ -87,6 +91,14 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, ProfileEditActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }
         });
     }

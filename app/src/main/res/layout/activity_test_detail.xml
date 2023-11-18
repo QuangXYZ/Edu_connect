@@ -13,7 +13,7 @@
             android:id="@+id/test_detail_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Chi tiết"
+            app:title="Chi tiết bài kiểm tra"
             app:titleTextColor="@color/white"
             app:titleCentered="true"
             android:background="@color/lavender"
@@ -58,11 +58,38 @@
         <Button
             android:id="@+id/test_detail_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bat dau"
-            android:textSize="16dp"
+
+            android:text="Làm bài"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:backgroundTint="@color/lavender"
+            app:cornerRadius="20dp"
             android:layout_gravity="center_horizontal"
             />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đã hoàn thành kiểm tra "
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/teal_700"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Điểm số: "
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/teal_700"
+            />
+
     </LinearLayout>
 
 </LinearLayout>

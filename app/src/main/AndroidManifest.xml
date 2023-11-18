@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Edu_connect"
         tools:targetApi="31">
         <activity
+            android:name=".View.ProfileEditActivity"
+            android:exported="false" />
+        <activity
             android:name=".View.StatisticActivity"
             android:exported="false" />
         <activity

@@ -13,7 +13,9 @@ import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.Model.Post;
 import com.example.edu_connect.Model.Test;
 import com.example.edu_connect.R;
+import com.example.edu_connect.Repository.CourseRepository;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class TestDetailActivity extends AppCompatActivity {
 
@@ -63,12 +65,19 @@ public class TestDetailActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TestDetailActivity.this, TakeATestActivity.class);
-                intent.putExtra("Test", test);
-                intent.putExtra("Course", course);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
-                finish();
+                new MaterialAlertDialogBuilder(TestDetailActivity.this)
+                        .setTitle("Bạn có chắc chắn")
+                        .setMessage("Chỉ được làm bài một lần")
+                        .setNeutralButton("Có", (dialog, which) -> {
+                            Intent intent = new Intent(TestDetailActivity.this, TakeATestActivity.class);
+                            intent.putExtra("Test", test);
+                            intent.putExtra("Course", course);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                            finish();
+                        })
+                        .setPositiveButton("Không", (dialog, which) -> {} ).show();
+
             }
         });
 
