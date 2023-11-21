@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.edu_connect.Controller.StudentHomeController;
 import com.example.edu_connect.Controller.TeacherHomeController;
@@ -40,6 +41,7 @@ public class StudentHomeActivity extends AppCompatActivity {
     ActionBarDrawerToggle actionBarDrawerToggle;
     MaterialToolbar toolbar;
     FirebaseAuthManager firebaseAuthManager;
+    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,8 @@ public class StudentHomeActivity extends AppCompatActivity {
         studentHomeController.getAllCourse(new StudentHomeController.Callback() {
             @Override
             public void onSuccess(List<Course> courses) {
-                courseArrayList.addAll(courses);
+                for (Course course : courses)
+                    if (!course.isStored()) courseArrayList.add(course);
                 courseAdapter.notifyDataSetChanged();
 
 
@@ -84,24 +87,12 @@ public class StudentHomeActivity extends AppCompatActivity {
         // to toggle the button
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        NavigationView navigationView = findViewById(R.id.student_nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.main_home) {
-
-                }
-                else if (id == R.id.nav_logout) {
-                    Intent intent = new Intent(StudentHomeActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    firebaseAuthManager.logoutUser();
-
-                }
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
+        navigationView = findViewById(R.id.student_nav_view);
+        View view = navigationView.getHeaderView(0);
+        TextView headerName = view.findViewById(R.id.header_navigation_user_name);
+        headerName.setText(FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getDisplayName());
+        TextView headerEmail = view.findViewById(R.id.header_navigation_user_email);
+        headerEmail.setText(FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getEmail());
 
     }
     void settingUpListeners () {
@@ -112,6 +103,35 @@ public class StudentHomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.main_home) {
+
+                }
+                if (id == R.id.nav_stored) {
+                    Intent intent = new Intent(StudentHomeActivity.this, CourseStoredActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                }
+                if (id == R.id.nav_profile) {
+                    Intent intent = new Intent(StudentHomeActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                }
+                else if (id == R.id.nav_logout) {
+                    Intent intent = new Intent(StudentHomeActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    firebaseAuthManager.logoutUser();
+
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -119,7 +139,8 @@ public class StudentHomeActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(List<Course> courses) {
                         courseArrayList.clear();
-                        courseArrayList.addAll(courses);
+                        for (Course course : courses)
+                            if (!course.isStored()) courseArrayList.add(course);
                         courseAdapter.notifyDataSetChanged();
                         swipeRefreshLayout.setRefreshing(false);
                     }
@@ -133,5 +154,13 @@ public class StudentHomeActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

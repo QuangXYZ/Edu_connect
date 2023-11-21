@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group
-        android:checkableBehavior="single">
 
-    <item
-        android:id="@+id/main_home"
-        android:title="Trang chủ"/>
-    <item
-        android:id="@+id/nav_account"
-        android:title="My Account" />
+        <group
+            android:checkableBehavior="single">
+            <item
+                android:id="@+id/main_home"
+                android:title="Trang chủ"
+                android:icon="@drawable/baseline_home_24"
+                />
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/baseline_person_24_lavender"
+                android:title="Tai khoan"/>
+            <item
+                android:id="@+id/nav_stored"
+                android:icon="@drawable/baseline_storage_24"
+                android:title="Luu tru"/>
+        </group>
+        <item
+            android:title="">
+            <menu>
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/baseline_login_24"
+                    android:title="Logout"/>
+            </menu>
+        </item>
 
-    <item
-        android:id="@+id/nav_settings"
-        android:title="Settings" />
 
-    <item
-        android:id="@+id/nav_logout"
-        android:title="Logout" />
-    </group>
 </menu>

@@ -12,9 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edu_connect.Model.Course;
+import com.example.edu_connect.Model.FirebaseAuthManager;
 import com.example.edu_connect.Model.Test;
 import com.example.edu_connect.R;
+import com.example.edu_connect.Shared.DataLocalManager;
 import com.example.edu_connect.View.CourseMainActivity;
+import com.example.edu_connect.View.TeacherTestChooseActivity;
 import com.example.edu_connect.View.TestDetailActivity;
 import com.google.android.material.card.MaterialCardView;
 
@@ -23,10 +26,12 @@ import java.util.List;
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.MyViewHolder>{
     List<Test> tests;
     Activity context;
+    Course course;
 
-    public TestAdapter(List<Test> tests, Activity context) {
+    public TestAdapter(List<Test> tests,Course course, Activity context) {
         this.tests = tests;
         this.context = context;
+        this.course = course;
     }
 
     @NonNull
@@ -41,12 +46,17 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.MyViewHolder>{
         Test test = tests.get(position);
         holder.name.setText(test.getTitle());
         holder.date.setText(test.getDate());
-        holder.question.setText(test.getQuestions().size()+"");
+        holder.question.setText("Số câu hỏi: "+test.getQuestions().size()+"");
         holder.materialCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, TestDetailActivity.class);
+                Intent intent;
+                if (DataLocalManager.getUserIsTeacher()) {
+                    intent = new Intent(context, TeacherTestChooseActivity.class);
+                }
+                else intent = new Intent(context, TestDetailActivity.class);
                 intent.putExtra("Test", test);
+                intent.putExtra("Course", course);
                 context.startActivity(intent);
                 context.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
 
@@ -72,7 +82,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.MyViewHolder>{
             name = itemView.findViewById(R.id.single_test_name);
             date = itemView.findViewById(R.id.single_test_date);
             question = itemView.findViewById(R.id.single_test_question);
-            done = itemView.findViewById(R.id.single_test_done);
+//            done = itemView.findViewById(R.id.single_test_done);
             materialCardView = itemView.findViewById(R.id.single_card_test);
         }
     }

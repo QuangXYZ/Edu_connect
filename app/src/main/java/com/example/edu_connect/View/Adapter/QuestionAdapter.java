@@ -53,6 +53,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
                 holder.expandableLayout.toggle();
             }
         });
+        if (question.getCorrectOption()==-1) {
+            holder.radioGroup.clearCheck();
+        }
         holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

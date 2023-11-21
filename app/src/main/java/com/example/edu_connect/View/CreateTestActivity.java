@@ -92,11 +92,10 @@ public class CreateTestActivity extends AppCompatActivity {
                         test.setTitle(title.getText().toString());
                         test.setQuestions(questionArrayList);
 
-
                         testController.addTest(course, test, new TestController.Callback() {
                                     @Override
                                     public void onSuccess() {
-                                        new MaterialAlertDialogBuilder(CreateTestActivity.this)
+                                        new MaterialAlertDialogBuilder(getApplicationContext())
                                                 .setTitle("Thành công")
                                                 .setMessage("Lớp đã được tạo")
                                                 .setPositiveButton("OK", (dialog, which) -> {

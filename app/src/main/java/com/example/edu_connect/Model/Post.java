@@ -71,6 +71,9 @@ public class Post implements Serializable {
     public void setFileUrl(List<String> fileUrl) {
         this.fileUrl = fileUrl;
     }
+    public void addFileUrl(String url) {
+        this.fileUrl.add(url);
+    }
 
     @Override
     public String toString() {

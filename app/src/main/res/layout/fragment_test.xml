@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".View.Fragment.TestFragment">
 
@@ -10,8 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+
         >
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/test_add"
             android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -21,7 +24,7 @@
             app:strokeColor="@color/black"
             >
             <LinearLayout
-                android:id="@+id/test_add"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical">

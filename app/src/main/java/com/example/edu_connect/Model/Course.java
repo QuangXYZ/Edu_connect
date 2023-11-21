@@ -21,6 +21,7 @@ public class Course implements Serializable {
     String room;
     String note;
     String date;
+    boolean stored;
 
     ArrayList<Post> posts;
     ArrayList<Test> tests;
@@ -35,6 +36,15 @@ public class Course implements Serializable {
         this.room = room;
         this.note = note;
         this.date = date;
+        this.stored = false;
+    }
+
+    public boolean isStored() {
+        return stored;
+    }
+
+    public void setStored(boolean stored) {
+        this.stored = stored;
     }
 
     public ArrayList<Test> getTests() {

@@ -16,7 +16,6 @@
             android:gravity="center"
             android:orientation="vertical"
             android:paddingTop="210dp"
-
             >
 
             <androidx.cardview.widget.CardView

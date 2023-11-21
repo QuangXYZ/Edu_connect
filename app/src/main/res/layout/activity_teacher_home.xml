@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.TeacherHomeActivity"
-    android:fitsSystemWindows="true">
+   >
  <androidx.constraintlayout.widget.ConstraintLayout
      android:layout_width="match_parent"
      android:layout_height="match_parent">
@@ -70,7 +70,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/navigation_menu"
-        android:fitsSystemWindows="true">
+        app:headerLayout="@layout/header_navigation_drawer"
+        app:itemIconTint="@color/lavender"
+        app:itemTextColor="@color/lavender">
 
     </com.google.android.material.navigation.NavigationView>
 <!--        app:headerLayout="@layout/header_navigation_drawer" />-->

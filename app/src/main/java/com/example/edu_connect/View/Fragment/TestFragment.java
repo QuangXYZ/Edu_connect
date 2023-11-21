@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.example.edu_connect.Controller.TestController;
 import com.example.edu_connect.Model.Course;
+import com.example.edu_connect.Model.FirebaseAuthManager;
 import com.example.edu_connect.Model.Test;
 import com.example.edu_connect.R;
 import com.example.edu_connect.Shared.DataLocalManager;
@@ -24,6 +25,7 @@ import com.example.edu_connect.View.CreateTestActivity;
 import com.example.edu_connect.View.LoginActivity;
 import com.example.edu_connect.View.StudentHomeActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ import java.util.List;
 
 public class TestFragment extends Fragment {
     Course course;
-    LinearLayout addTest;
+    MaterialCardView addTest;
     RecyclerView recyclerView;
     List<Test> testList;
     TestAdapter testAdapter;
@@ -58,12 +60,13 @@ public class TestFragment extends Fragment {
         recyclerView = view.findViewById(R.id.test_home_recycle_view);
         testList = new ArrayList<>();
         testController = new TestController();
+        if (!DataLocalManager.getUserIsTeacher()) addTest.setVisibility(View.GONE);
         testController.getTest(course.getIdCourse(), new TestController.GetTestsCallback() {
             @Override
             public void onSuccess(List<Test> tests) {
 
                 testList.addAll(tests);
-                testAdapter = new TestAdapter(testList, getActivity());
+                testAdapter = new TestAdapter(testList,course, getActivity());
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(testAdapter);
                 recyclerView.setNestedScrollingEnabled(true);
