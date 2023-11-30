@@ -26,6 +26,9 @@ import com.example.edu_connect.Model.Test;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.google.android.material.appbar.MaterialToolbar;
 
 
 import java.text.DecimalFormat;
@@ -37,6 +40,7 @@ import java.util.Map;
 public class StatisticActivity extends AppCompatActivity {
 
     BarChart barChart;
+    MaterialToolbar toolbar;
     PieChart pieChart;
     List<BarEntry> entries;
     Test test;
@@ -50,9 +54,11 @@ public class StatisticActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
         init();
+        settingUpListener();
     }
 
     void init() {
+        toolbar = findViewById(R.id.statistic_toolbar);
         pieChart = findViewById(R.id.statistic_pie_chart);
         rd = findViewById(R.id.statistic_rd);
         sum = findViewById(R.id.statistic_sum);
@@ -95,19 +101,37 @@ public class StatisticActivity extends AppCompatActivity {
         sumScore = sumScore / scoreList.size();
         Collections.sort(scores);
         sum.setText(sum.getText().toString() + scoreList.size());
-        avg.setText(sum.getText().toString() + decimalFormat.format(sumScore));
-        mid.setText(sum.getText().toString() + scores.get(scores.size() / 2));
+        avg.setText(avg.getText().toString() + decimalFormat.format(sumScore));
+        mid.setText(mid.getText().toString() + scores.get(scores.size() / 2));
 
 
         for (int i = 0; i < 11; i++) {
-            entries.add(new BarEntry(score[(int) scoreList.get(i).getScore()][0], 0));
+            entries.add(new BarEntry(i,(float)score[i][0]));
         }
         BarDataSet barDataSet = new BarDataSet(entries, "Score");
         barDataSet.setColor(Color.BLUE);
         barDataSet.setValueTextColor(Color.GREEN);
+
+        ArrayList<String> xAxislist = new ArrayList<>();
+        xAxislist.add("0");
+        xAxislist.add("1");
+        xAxislist.add("2");
+        xAxislist.add("3");
+        xAxislist.add("4");
+        xAxislist.add("5");
+        xAxislist.add("6");
+        xAxislist.add("7");
+        xAxislist.add("8");
+        xAxislist.add("9");
+        xAxislist.add("10");
+
+
+
         BarData barData = new BarData(barDataSet);
         barChart.setData(barData);
         XAxis xAxis = barChart.getXAxis();
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxislist));
+
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         YAxis yAxis = barChart.getAxisLeft();
         yAxis.setAxisMinimum(0f);
@@ -115,18 +139,32 @@ public class StatisticActivity extends AppCompatActivity {
 
 
         List<PieEntry> pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry((float) scoreH5, "Điểm >=5"));
-        pieEntries.add(new PieEntry((float) scoreL5, "Điểm <5"));
+        pieEntries.add(new PieEntry((((float) scoreH5)/scoreList.size())*100, "Điểm >=5"));
+        pieEntries.add(new PieEntry((((float) scoreL5)/scoreList.size())*100, "Điểm <5"));
+
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "Pie chart");
-        pieDataSet.setColor(Color.BLUE, Color.RED);
+        pieDataSet.setColors(Color.BLUE, Color.RED);
+        pieDataSet.setValueTextColor(getResources().getColor(R.color.white));
         PieData pieData = new PieData(pieDataSet);
+        pieData.setDrawValues(true);
+        pieData.setValueFormatter(new PercentFormatter(pieChart));
+
+
         pieChart.setData(pieData);
+        pieChart.setDrawEntryLabels(true);
+        pieChart.getDescription().setEnabled(false);
         pieChart.invalidate();
 
 
     }
 
     void settingUpListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         rd.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

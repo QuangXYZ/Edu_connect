@@ -11,11 +11,11 @@
             <item
                 android:id="@+id/nav_profile"
                 android:icon="@drawable/baseline_person_24_lavender"
-                android:title="Tai khoan"/>
+                android:title="Tài khoản"/>
             <item
                 android:id="@+id/nav_stored"
                 android:icon="@drawable/baseline_storage_24"
-                android:title="Luu tru"/>
+                android:title="Lưu trữ"/>
         </group>
         <item
             android:title="">
@@ -23,7 +23,7 @@
                 <item
                     android:id="@+id/nav_logout"
                     android:icon="@drawable/baseline_login_24"
-                    android:title="Logout"/>
+                    android:title="Đăng xuất"/>
             </menu>
         </item>
 

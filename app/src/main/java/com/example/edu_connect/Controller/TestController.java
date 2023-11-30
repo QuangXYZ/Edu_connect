@@ -2,6 +2,7 @@ package com.example.edu_connect.Controller;
 
 import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.Model.Question;
+import com.example.edu_connect.Model.Score;
 import com.example.edu_connect.Model.Test;
 import com.example.edu_connect.Repository.TestRepository;
 
@@ -74,6 +75,26 @@ public class TestController {
         });
         callback.onSuccess(score);
     }
+
+
+    public void isTestComplete(Test test, Course course,  final IsTestConpleteCallback isTestConpleteCallback ) {
+        TestRepository.isTestComplete(test.getIdTest(), course.getIdCourse(), new TestRepository.IsTestConpleteCallback() {
+            @Override
+            public void onComplete(Score score) {
+                isTestConpleteCallback.onComplete(score);
+            }
+
+            @Override
+            public void onNotComplete() {
+                isTestConpleteCallback.onNotComplete();
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                isTestConpleteCallback.onFailure(e);
+            }
+        });
+    }
     public interface Callback {
         void onSuccess();
         void onFailure(Exception e);
@@ -84,6 +105,11 @@ public class TestController {
     }
     public interface ScoreCallback {
         void onSuccess(int score);
+        void onFailure(Exception e);
+    }
+    public interface IsTestConpleteCallback {
+        void onComplete(Score score);
+        void onNotComplete();
         void onFailure(Exception e);
     }
 

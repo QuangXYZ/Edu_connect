@@ -43,6 +43,7 @@ public class PostDetailActivity extends AppCompatActivity {
         date = findViewById(R.id.post_detail_date);
         recyclerView = findViewById(R.id.post_detail_recycle_view);
 
+        uriList = new ArrayList<>();
         Intent intent = getIntent();
         if (intent!=null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -60,7 +61,11 @@ public class PostDetailActivity extends AppCompatActivity {
 
 
         if (post.getFileUrl()!=null) {
-            urlAdapter = new UrlAdapter(post.getFileUrl(), PostDetailActivity.this);
+
+            for (int i=0;i<post.getFileUrl().size();i++) {
+                uriList.add(post.getFileUrl().get(i).substring(post.getFileUrl().get(i).lastIndexOf("/") + 1));
+            }
+            urlAdapter = new UrlAdapter(uriList, PostDetailActivity.this);
             recyclerView.setLayoutManager(new LinearLayoutManager(PostDetailActivity.this));
             recyclerView.setAdapter(urlAdapter);
             recyclerView.setNestedScrollingEnabled(true);

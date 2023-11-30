@@ -69,6 +69,7 @@
             />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/test_detail_complex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -82,6 +83,7 @@
             android:textColor="@color/teal_700"
             />
         <TextView
+            android:id="@+id/test_detail_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Điểm số: "
