@@ -7,10 +7,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.edu_connect.Controller.TestController;
 import com.example.edu_connect.Model.Course;
 import com.example.edu_connect.Model.Post;
+import com.example.edu_connect.Model.Score;
 import com.example.edu_connect.Model.Test;
 import com.example.edu_connect.R;
 import com.example.edu_connect.Repository.CourseRepository;
@@ -24,6 +27,9 @@ public class TestDetailActivity extends AppCompatActivity {
     TextView title, question, date;
     Button btn;
     Course course;
+    LinearLayout result;
+    TextView scoretv;
+    TestController testController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +43,10 @@ public class TestDetailActivity extends AppCompatActivity {
         question = findViewById(R.id.test_detail_question);
         btn = findViewById(R.id.test_detail_btn);
         date = findViewById(R.id.test_detail_date);
+        result = findViewById(R.id.test_detail_complex);
+        scoretv =findViewById(R.id.test_detail_score);
+        testController = new TestController();
+
 
 
         Intent intent = getIntent();
@@ -50,10 +60,29 @@ public class TestDetailActivity extends AppCompatActivity {
                 course = (Course) intent.getSerializableExtra("Course");
             }
         }
+        testController.isTestComplete(test, course, new TestController.IsTestConpleteCallback() {
+            @Override
+            public void onComplete(Score score) {
 
+                btn.setVisibility(View.GONE);
+                scoretv.setText(scoretv.getText().toString()+score.getScore());
+            }
+
+            @Override
+            public void onNotComplete() {
+                result.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
         title.setText("Tiêu đề: "+test.getTitle());
         question.setText("Tổng số câu hỏi: "+test.getQuestions().size());
         date.setText(test.getDate());
+
+
     }
     void settingUpListeners(){
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

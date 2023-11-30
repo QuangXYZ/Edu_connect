@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class TestRepository {
     public static void addTest(Course course, Test test, Callback callback) {
@@ -108,6 +109,33 @@ public class TestRepository {
                 });
 
     }
+    public static void isTestComplete(String testId, String courseId,final IsTestConpleteCallback isTestConpleteCallback ) {
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Course");
+        String uid = FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getUid();
+        root.child(courseId).child("Tests").child(testId).child("Score").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean check = false;
+                if (snapshot.exists()) {
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        Score score = data.getValue(Score.class);
+                        if (Objects.equals(score.getUid(), uid)) {
+                            isTestConpleteCallback.onComplete(score);
+                        }
+                        }
+                    }
+                if (!check) isTestConpleteCallback.onNotComplete();
+
+
+
+                }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                isTestConpleteCallback.onFailure(error.toException());
+            }
+        });
+    }
 
     public interface Callback {
         void onSuccess();
@@ -115,6 +143,11 @@ public class TestRepository {
     }
     public interface GetTestsCallback {
         void onSuccess(List<Test> tests);
+        void onFailure(Exception e);
+    }
+    public interface IsTestConpleteCallback {
+        void onComplete(Score score);
+        void onNotComplete();
         void onFailure(Exception e);
     }
 

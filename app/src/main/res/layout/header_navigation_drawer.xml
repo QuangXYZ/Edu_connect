@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_login_24"/>
+        android:src="@drawable/baseline_person_24_lavender"/>
     <TextView
         android:id="@+id/header_navigation_user_name"
         android:layout_width="wrap_content"
