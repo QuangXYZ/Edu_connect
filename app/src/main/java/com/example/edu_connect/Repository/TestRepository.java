@@ -112,7 +112,7 @@ public class TestRepository {
     public static void isTestComplete(String testId, String courseId,final IsTestConpleteCallback isTestConpleteCallback ) {
         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Course");
         String uid = FirebaseAuthManager.getFirebaseAuthManagerInstance().getCurrentUser().getUid();
-        root.child(courseId).child("Tests").child(testId).child("Score").addListenerForSingleValueEvent(new ValueEventListener() {
+        root.child(courseId).child("Tests").child(testId).child("scores").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean check = false;
@@ -121,6 +121,7 @@ public class TestRepository {
                         Score score = data.getValue(Score.class);
                         if (Objects.equals(score.getUid(), uid)) {
                             isTestConpleteCallback.onComplete(score);
+                            check = true;
                         }
                         }
                     }

@@ -96,14 +96,15 @@
                     android:textColor="@color/black"
                     android:spinnerMode="dialog"
                     />
-                <ProgressBar
+                <com.github.ybq.android.spinkit.SpinKitView
                     android:id="@+id/signupProgressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
                     android:layout_marginTop="30dp"
+                    style="@style/SpinKitView.Small"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:visibility="gone"
-
+                    app:SpinKit_Color="@color/lavender"
+                    android:visibility="gone"/>
                     />
                 <Button
                     android:id="@+id/signupButton"

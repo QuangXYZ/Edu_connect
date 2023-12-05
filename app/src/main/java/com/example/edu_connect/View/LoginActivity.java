@@ -17,6 +17,10 @@ import com.example.edu_connect.Controller.LoginController;
 import com.example.edu_connect.R;
 import com.example.edu_connect.Repository.TeacherRepository;
 import com.example.edu_connect.Shared.DataLocalManager;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.FoldingCube;
+import com.github.ybq.android.spinkit.style.RotatingCircle;
+import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = findViewById(R.id.login_password);
         loginController = new LoginController();
         loginProgressbar = findViewById(R.id.loginProgressBar);
+        Sprite doubleBounce = new ThreeBounce();
+        loginProgressbar.setIndeterminateDrawable(doubleBounce);
     }
     void settingUpListeners(){
         signupText.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 loginBtn.setVisibility(View.GONE);
                 loginProgressbar.setVisibility(View.VISIBLE);
+
                 if (loginEmail.getText().toString().isEmpty()) {
                     loginEmail.setError("Nhập email");
                     loginEmail.requestFocus();
@@ -115,10 +122,11 @@ public class LoginActivity extends AppCompatActivity {
                                 .setTitle("Đăng nhập không thành công")
                                 .setMessage(e.getMessage())
                                 .setPositiveButton("OK", (dialog, which) -> {} ).show();
+                        loginBtn.setVisibility(View.VISIBLE);
+                        loginProgressbar.setVisibility(View.GONE);
                     }
                 });
-                loginBtn.setVisibility(View.VISIBLE);
-                loginProgressbar.setVisibility(View.GONE);
+
             }
         });
     }

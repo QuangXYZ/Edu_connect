@@ -50,7 +50,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 post = intent.getSerializableExtra("Post", Post.class);
             }
             else {
-                post = (Post) intent.getSerializableExtra("Post");
+                 post = (Post) intent.getSerializableExtra("Post");
             }
         }
 
@@ -61,11 +61,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
 
         if (post.getFileUrl()!=null) {
-
-            for (int i=0;i<post.getFileUrl().size();i++) {
-                uriList.add(post.getFileUrl().get(i).substring(post.getFileUrl().get(i).lastIndexOf("/") + 1));
-            }
-            urlAdapter = new UrlAdapter(uriList, PostDetailActivity.this);
+            urlAdapter = new UrlAdapter(post.getFileUrl(), PostDetailActivity.this);
             recyclerView.setLayoutManager(new LinearLayoutManager(PostDetailActivity.this));
             recyclerView.setAdapter(urlAdapter);
             recyclerView.setNestedScrollingEnabled(true);
