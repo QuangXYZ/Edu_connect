@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.example.edu_connect.Controller.LoginController;
 import com.example.edu_connect.Controller.SignupController;
 import com.example.edu_connect.R;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
@@ -55,6 +57,8 @@ public class SignupActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,roleArray);
         signupSpinner.setAdapter(arrayAdapter);
         role = "Student";
+        Sprite doubleBounce = new ThreeBounce();
+        signupProgressbar.setIndeterminateDrawable(doubleBounce);
     }
     void settingUpListeners() {
         loginText.setOnClickListener(new View.OnClickListener() {
@@ -152,12 +156,13 @@ public class SignupActivity extends AppCompatActivity {
 
                                             }
                                         }).show();
+                                signupBtn.setVisibility(View.VISIBLE);
+                                signupProgressbar.setVisibility(View.GONE);
 
                             }
                         });
                     }
-                signupBtn.setVisibility(View.VISIBLE);
-                signupProgressbar.setVisibility(View.GONE);
+
             }
         });
 

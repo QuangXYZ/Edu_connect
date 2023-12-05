@@ -65,7 +65,7 @@ public class TestDetailActivity extends AppCompatActivity {
             public void onComplete(Score score) {
 
                 btn.setVisibility(View.GONE);
-                scoretv.setText(scoretv.getText().toString()+score.getScore());
+                scoretv.setText(scoretv.getText().toString()+(float)score.getScore());
             }
 
             @Override

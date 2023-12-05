@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.edu_connect.Model.Test;
 import com.example.edu_connect.R;
 import com.example.edu_connect.View.CourseMainActivity;
+import com.example.edu_connect.View.DetailMemberCourse;
+import com.example.edu_connect.View.ImageViewActivity;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
@@ -37,7 +39,16 @@ public class UrlAdapter extends RecyclerView.Adapter<UrlAdapter.MyViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String uri = uriList.get(position);
-        holder.name.setText(uri);
+        holder.name.setText("Image "+(position+1));
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ImageViewActivity.class);
+                intent.putExtra("URL", uri);
+                context.startActivity(intent);
+                context.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
     }
 
     @Override

@@ -7,6 +7,12 @@
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".View.TestResultActivity">
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="10dp"
+        app:srcCompat="@drawable/congratulation" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,11 +39,13 @@
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
 
-        android:text="Trang chu"
+        android:text="Trang chủ"
         android:textSize="18sp"
         android:backgroundTint="@color/lavender"
         app:cornerRadius="20dp"
 
         />
+
+
 
 </LinearLayout>
