@@ -30,6 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
         settingUpListener();
     }
     void init() {
+        //commentfasdf
         name = findViewById(R.id.profile_name);
         mssv = findViewById(R.id.profile_mssv);
         className = findViewById(R.id.profile_lop);
